@@ -1,0 +1,191 @@
+#compdef sbatch
+
+# Zsh completion for Slurm's sbatch command
+#
+# This script was inspired by and derived from the Vim syntax file for Slurm.
+# It provides completions for sbatch options found within #SBATCH directives
+# or on the command line.
+#
+# To install:
+# 1. Save this file as `_sbatch` in a directory that is part of your FPATH.
+#    For example: ~/.zsh/completion/_sbatch
+# 2. Make sure your .zshrc contains:
+#    fpath=(~/.zsh/completion $fpath)
+#    autoload -U compinit && compinit
+# 3. Restart your shell or run `unfunction _sbatch && autoload _sbatch`.
+
+_sbatch() {
+	local -a options
+	local ret=1
+
+	# Helper function for dynamic partition completion
+	_slurm_partitions() {
+		local -a partitions
+		partitions=( ${(@f)"$(sinfo -h -o '%P' 2>/dev/null)"} )
+		_describe 'partition' partitions
+	}
+
+	# Helper function for dynamic account completion
+	_slurm_accounts() {
+		local -a accounts
+		if command -v sacctmgr >/dev/null; then
+			accounts=( ${(@f)"$(sacctmgr show account -n -P format=Account 2>/dev/null)"} )
+			_describe 'account' accounts
+		fi
+	}
+
+	# NEW: dynamic QoS completion
+	_slurm_qos() {
+		local -a qos
+		if command -v sacctmgr >/dev/null; then
+			qos=( ${(@f)"$(sacctmgr show qos -n -P format=Name 2>/dev/null)"} )
+			_describe 'qos' qos
+		fi
+	}
+
+	# NEW: dynamic reservation names
+	_slurm_reservations() {
+		local -a reservations
+		reservations=( ${(@f)"$(scontrol show reservation 2>/dev/null | sed -n 's/ReservationName=\\([^ ]*\\).*/\\1/p')"} )
+		_describe 'reservation' reservations
+	}
+
+	# NEW: dynamic constraints/features
+	_slurm_constraints() {
+		local -a lines feats
+		lines=( ${(@f)"$(sinfo -h -o %f 2>/dev/null)"} )
+		local all="${(j:,:)lines}"
+		feats=( ${(u)${(s:,:)"$all"} } )
+		_describe 'feature' feats
+	}
+
+	# NEW: dynamic generic resources (very heuristic)
+	_slurm_gres() {
+		local -a gres
+		gres=( ${(@f)"$(sinfo -h -o %G 2>/dev/null | tr , '\\n' | sed 's/(.*)//' | sed 's/*.*//')" } )
+		gres=( ${(u)gres} )
+		_describe 'gres' gres
+	}
+
+	# Helper function for resource limits (for --propagate)
+	_slurm_resources() {
+		_values 'resource limit' \
+			'ALL' 'AS' 'CORE' 'CPU' 'DATA' 'FSIZE' 'MEMLOCK' 'NOFILE' 'NPROC' 'RSS' 'STACK'
+	}
+
+	_arguments -C \
+		'(-A --account)-A[Charge job to specified account]:account:_slurm_accounts' \
+		'(-A --account)--account=-[Charge job to specified account]:account:_slurm_accounts' \
+		'--acctg-freq=-[Accounting frequency for array jobs]:frequency:' \
+		'(-a --array)-a[Job array spec]:array_spec:' \
+		'(-a --array)--array=-[Job array spec]:array_spec:' \
+		'--batch[Submit as batch job (default)]' \
+		'(-b --begin)-b[Defer job start until specified time]:time:' \
+		'(-b --begin)--begin=-[Defer job start until specified time]:time:' \
+		'--comment=-[Arbitrary comment]:comment:' \
+		'(-C --constraint)-C[Specify node features]:features:_slurm_constraints' \
+		'(-C --constraint)--constraint=-[Specify node features]:features:_slurm_constraints' \
+		'--contiguous[Request contiguous nodes]' \
+		'--cores-per-socket=-[Number of cores per socket]:cores:' \
+		'--cpu-bind=-[Bind tasks to CPUs]:binding_spec:' \
+		'(-c --cpus-per-task)-c[CPUs per task]:cpus:' \
+		'(-c --cpus-per-task)--cpus-per-task=-[CPUs per task]:cpus:' \
+		'--deadline=-[Latest start or completion time]:time:' \
+		'(-d --dependency)-d[Defer job based on other jobs]:dependency:' \
+		'(-d --dependency)--dependency=-[Defer job based on other jobs]:dependency:' \
+		'--delay-boot=-[Delay boot of nodes]:seconds:' \
+		'(-m --distribution)-m[Node distribution method]:method:(block cyclic arbitrary plane)' \
+		'(-m --distribution)--distribution=-[Node distribution method]:method:(block cyclic arbitrary plane)' \
+		'(-e --error)-e[File for stderr]:file:_files' \
+		'(-e --error)--error=-[File for stderr]:file:_files' \
+		'--exclusive[Allocate entire nodes]' \
+		'(-x --exclude)-x[Exclude nodes]:nodelist:' \
+		'(-x --exclude)--exclude=-[Exclude nodes]:nodelist:' \
+		'(-B --extra-node-info)-B[Topology details]:sockets:cores:threads' \
+		'(-B --extra-node-info)--extra-node-info=-[Topology details]:sockets:cores:threads' \
+		'--export=-[Environment export control]:export_spec:(ALL NONE ALL,ALL --all)' \
+		'--get-user-env[Load user login environment]' \
+		'--gid=-[Group ID]:group:_groups' \
+		'--gres=-[Generic consumable resources]:gres:_slurm_gres' \
+		'--gres-flags=-[Generic resource flags]:flags:(disable-binding enforce-binding)' \
+		'--gpus=-[Total GPUs]:gpus:' \
+		'--gpus-per-node=-[GPUs per node]:gpus:' \
+		'--gpus-per-task=-[GPUs per task]:gpus:' \
+		'--hint=-[Set job binding hint]:hint:(compute_bound memory_bound nomultithread multithread)' \
+		'--immediate[Fail if resources not immediately available]' \
+		'(-i --input)-i[File for stdin]:file:_files' \
+		'(-i --input)--input=-[File for stdin]:file:_files' \
+		'(-J --job-name)-J[Job name]:job_name:' \
+		'(-J --job-name)--job-name=-[Job name]:job_name:' \
+		'--job-id=-[Internal use job id]:job_id:' \
+		'(-L --licenses)-L[Required licenses]:license_spec:' \
+		'(-L --licenses)--licenses=-[Required licenses]:license_spec:' \
+		'--kill-on-invalid-dep[Cancel job if dependency invalid]' \
+		'--mail-type=-[Notify on state change]:type:(ALL BEGIN END FAIL REQUEUE NONE TIME_LIMIT TIME_LIMIT_90 TIME_LIMIT_80 TIME_LIMIT_50 ARRAY_TASKS)' \
+		'--mail-user=-[Mail recipient]:email:_users' \
+		'--mcs-label=-[MCS label]:label:' \
+		'--mem=-[Real memory per node (e.g. 4G)]:memory:' \
+		'--mem-per-cpu=-[Real memory per CPU]:memory:' \
+		'--mem-per-gpu=-[Real memory per GPU]:memory:' \
+		'--mem-bind=-[Memory binding policy]:policy:' \
+		'--mincores=-[Minimum cores per node]:cores:' \
+		'--mincpus=-[Minimum CPUs per node]:cpus:' \
+		'--minsockets=-[Minimum sockets per node]:sockets:' \
+		'--minthreads=-[Minimum threads per node]:threads:' \
+		'(-N --nodes)-N[Number of nodes]:nodes:' \
+		'(-N --nodes)--nodes=-[Number of nodes]:nodes:' \
+		'(-w --nodelist)-w[Specific list of nodes]:nodelist:' \
+		'(-w --nodelist)--nodelist=-[Specific list of nodes]:nodelist:' \
+		'--network=-[Network configuration]:network_spec:' \
+		'--nice=-[Adjust scheduling priority]:adjust:' \
+		'(-k --no-kill)'{-k,--no-kill}'[Do not kill if node fails]' \
+		'--no-requeue[Do not requeue on failure]' \
+		'(-n --ntasks)-n[Total number of tasks]:tasks:' \
+		'(-n --ntasks)--ntasks=-[Total number of tasks]:tasks:' \
+		'--ntasks-per-core=-[Tasks per core]:tasks:' \
+		'--ntasks-per-gpu=-[Tasks sharing each GPU]:tasks:' \
+		'--ntasks-per-node=-[Tasks per node]:tasks:' \
+		'--ntasks-per-socket=-[Tasks per socket]:tasks:' \
+		'--open-mode=-[Stdout/err open mode]:mode:(append truncate)' \
+		'(-o --output)-o[File for stdout]:file:_files' \
+		'(-o --output)--output=-[File for stdout]:file:_files' \
+		'--overcommit[Overcommit resources]' \
+		'(-p --partition)-p[Partition]:partition:_slurm_partitions' \
+		'(-p --partition)--partition=-[Partition]:partition:_slurm_partitions' \
+		'--parsable[Machine parsable output]' \
+		'--power=-[Power management request]:power_spec:' \
+		'--priority=-[Job priority request]:priority:' \
+		'--profile=-[Profiling flags]:profile:(all none energy task)' \
+		'--propagate[Propagate all resource limits]' \
+		'--propagate=-[Propagate specific limits]:limit:_slurm_resources -s,' \
+		'--qos=-[Quality of Service]:qos:_slurm_qos' \
+		'(-Q --quiet)'{-Q,--quiet}'[Suppress informational messages]' \
+		'--requeue[Allow job requeue]' \
+		'--reservation=-[Reservation name]:reservation:_slurm_reservations' \
+		'(-s --share)'{-s,--share}'[Allow node sharing]' \
+		'--signal=-[Signal on timeout]:signal:_signals' \
+		'--sockets-per-node=-[Sockets per node]:sockets:' \
+		'--spread-job[Distribute tasks over nodes]' \
+		'--switches=-[Max switches (count@time)]:switches:' \
+		'--test-only[Validate and exit]' \
+		'--threads-per-core=-[Threads per core]:threads:' \
+		'(-t --time)-t[Time limit D-HH:MM:SS]:time_limit:' \
+		'(-t --time)--time=-[Time limit D-HH:MM:SS]:time_limit:' \
+		'--time-min=-[Minimum time limit]:time_min:' \
+		'--tmp=-[Temp disk per node]:disk_space:' \
+		'--uid=-[User ID]:user:_users' \
+		'--use-min-nodes[Use min node count if full request unavailable]' \
+		'(-v --verbose)'{-v,--verbose}'[Increase verbosity]' \
+		'--version[Show Slurm version]' \
+		'(-W --wait)'{-W,--wait}'[Wait for job completion]' \
+		'--wckey=-[Workload characterization key]:wckey:' \
+		'(-D --workdir)-D[Working directory]:directory:_files -/' \
+		'(-D --workdir)--workdir=-[Working directory]:directory:_files -/' \
+		'--wrap=-[Wrap command string]:command_string:' \
+		'1:script_file:_files -g "*.(sh|slurm|sbatch)"' \
+		&& ret=0
+
+	return ret
+}
+
+_sbatch "$@"
