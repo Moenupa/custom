@@ -4,6 +4,7 @@ if ! command -v python3 &> /dev/null && ! command -v uv &> /dev/null; then
 fi
 
 alias py='python3'
+alias pyconfig='vim pyproject.toml'
 alias va='conda activate'
 alias vd='conda deactivate'
 alias vva='source .venv/bin/activate'
