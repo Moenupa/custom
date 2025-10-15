@@ -8,7 +8,13 @@ export SQUEUE_FORMAT="%.10i %.5P %.30j %.10u %.2t %.12M %.2D %R"
 export SACCT_FORMAT="JobID%-10,JobName%-24,State,ExitCode,Start,End,Elapsed,NodeList,WorkDir%-10"
 
 # shortcuts, should not conflict
-alias sb='sbatch'
+sb() {
+	local output jobid
+	output=$(sbatch "$@")
+	jobid=$(echo "$output" | awk '{print $4}')
+	echo $output
+	echo "$(sl $jobid)"
+}
 alias scc='scancel'
 alias sq='squeue'
 alias sd='scontrol show jobid -d'
@@ -37,8 +43,8 @@ sl() {
 		stdout=$(grep -oP 'StdOut=\K\S+' <<< "$jobinfo")
 		stderr=$(grep -oP 'StdErr=\K\S+' <<< "$jobinfo")
 
-		echo "\e[7;32mOUT-$jobid\e[0m $stdout"
-		echo "\e[7;35mERR-$jobid\e[0m $stderr"
+		echo "\e[44mOUT $jobid\e[0m $stdout"
+		echo "\e[41mERR $jobid\e[0m $stderr"
 	done
 }
 sll() {
