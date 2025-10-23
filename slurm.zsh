@@ -12,7 +12,7 @@ SLURM_DEVICE_SPECIFIC_ARGS=""
 # shortcuts, should not conflict
 sbatch() {
 	local output jobid
-	output=$(sbatch $SLURM_DEVICE_SPECIFIC_ARGS "$@")
+	output=$(sbatch "$SLURM_DEVICE_SPECIFIC_ARGS" "$@")
 	jobid=$(echo "$output" | awk '{print $4}')
 	echo $output
 	echo "$(sl $jobid)"
