@@ -7,18 +7,15 @@ fi
 export SQUEUE_FORMAT="%.10i %.5P %.30j %.10u %.2t %.12M %.2D %R"
 export SACCT_FORMAT="JobID%-10,JobName%-24,State,ExitCode,Start,End,Elapsed,NodeList,WorkDir%-10"
 
-# e.g. "-p YOUR_FIXED_PARTITION" "--mail-type"
-SLURM_DEVICE_SPECIFIC_ARGS=""
 # shortcuts, should not conflict
-sbatch() {
+sb() {
 	local output jobid
-	output=$(sbatch "$SLURM_DEVICE_SPECIFIC_ARGS" "$@")
+	output=$(sbatch "$@")
 	jobid=$(echo "$output" | awk '{print $4}')
 	echo $output
 	echo "$(sl $jobid)"
 }
-alias sb=sbatch
-alias srun="srun $SLURM_DEVICE_SPECIFIC_ARGS"
+compdef _sbatch sb
 alias scc='scancel'
 alias sq='squeue'
 alias sd='scontrol show jobid -d'
