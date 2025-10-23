@@ -15,7 +15,6 @@ sb() {
 	echo $output
 	echo "$(sl $jobid)"
 }
-compdef _sbatch sb
 alias scc='scancel'
 alias sq='squeue'
 alias sd='scontrol show jobid -d'
