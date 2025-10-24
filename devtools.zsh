@@ -5,6 +5,8 @@ alias sshconfig='vim ~/.ssh/config'
 alias duhid='du -sh .[^.]*'
 alias duall='du -sh *'
 
+alias tf='tail -f'
+
 if command -v podman &> /dev/null; then
 	alias docker=podman
 fi
