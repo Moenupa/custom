@@ -25,26 +25,55 @@ alias shist="(slist | head -n 2; slist -n | sort -k 5 -r)"
 # sorted by end time
 alias slast="(slist | head -n 2; slist -n | sort -k 6 -r)"
 
-# slurm log finding/listing
 sl() {
-	if [[ $# -eq 0 ]]; then
+	# Parse options
+	local show_stdout=0
+	local show_stderr=0
+	local jobids=()
+
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+			--stdout|-o)
+				show_stdout=1
+				shift
+				;;
+			--stderr|-e)
+				show_stderr=1
+				shift
+				;;
+			*)
+				jobids+=("$1")
+				shift
+				;;
+		esac
+	done
+
+	if [[ ${#jobids[@]} -eq 0 ]]; then
 		echo "Finds stdout and stderr for a slurm job"
-		echo "Usage: $0 <jobid> [jobid2 jobid3 ...]"
+		echo "Usage: $0 [-o|--stdout] [-e|--stderr] <jobid> [jobid2 ...]"
 		return 1
 	fi
 
+	# Default: print stderr only if neither option is specified
+	if [[ $show_stdout -eq 0 && $show_stderr -eq 0 ]]; then
+		show_stderr=1
+	fi
+
 	local jobid jobinfo stdout stderr
-	for jobid in "$@"; do
+	for jobid in "${jobids[@]}"; do
 		if ! jobinfo=$(scontrol show job "$jobid" 2>/dev/null); then
 			echo "Error: Could not find job $jobid" >&2
 			continue
 		fi
 
-		stdout=$(grep -oP 'StdOut=\K\S+' <<< "$jobinfo")
-		stderr=$(grep -oP 'StdErr=\K\S+' <<< "$jobinfo")
-
-		echo "\e[44mOUT $jobid\e[0m $stdout"
-		echo "\e[41mERR $jobid\e[0m $stderr"
+		if [[ $show_stdout -eq 1 ]]; then
+			stdout=$(grep -oP 'StdOut=\K\S+' <<< "$jobinfo")
+			echo -e "\e[44m$stdout\e[0m"
+		fi
+		if [[ $show_stderr -eq 1 ]]; then
+			stderr=$(grep -oP 'StdErr=\K\S+' <<< "$jobinfo")
+			echo -e "\e[41m$stderr\e[0m"
+		fi
 	done
 }
 sll() {
@@ -81,13 +110,14 @@ _slurm_jobids() {
 }
 _running_jobids() {
 	local expl
-	local -a running
-	running=(${(f)"$(squeue -u $USER -h -o '%A' 2>/dev/null)"})
-	running=(${(u)running})
+	local -a jobids
 
-	if [[ -n $running ]]; then
-		_wanted running expl 'Running Jobs' compadd -a running
-	fi
+	jobids=(${(f)"$(squeue -u $USER -h -o '%A' 2>/dev/null)"})
+	jobids=(${(u)jobids})
+	_arguments \
+		'(-o --stdout)'{-o,--stdout}'[Show stdout]' \
+		'(-e --stderr)'{-e,--stderr}'[Show stderr]' \
+		'*:jobid:->jobids'
 }
 
 compdef _running_jobids sl
