@@ -1,19 +1,19 @@
-#compdef sbatch sb
-#description:sbatch in slurm
+#compdef srun
+#description:srun in slurm
 #
-# Zsh completion for Slurm's sbatch command
+# Zsh completion for Slurm's srun command
 #
 # This script was inspired by and derived from the Vim syntax file for Slurm.
-# It provides completions for sbatch options found within #SBATCH directives
+# It provides completions for srun options found within #SBATCH directives
 # or on the command line.
 #
 # To install:
-# 1. Save this file as `_sbatch` in a directory that is part of your FPATH.
-#    For example: ~/.zsh/completion/_sbatch
+# 1. Save this file as `_srun` in a directory that is part of your FPATH.
+#    For example: ~/.zsh/completion/_srun
 # 2. Make sure your .zshrc contains:
 #    fpath=(~/.zsh/completion $fpath)
 #    autoload -U compinit && compinit
-# 3. Restart your shell or run `unfunction _sbatch && autoload _sbatch`.
+# 3. Restart your shell or run `unfunction _srun && autoload _srun`.
 
 local -a options
 local ret=1
@@ -33,6 +33,12 @@ _arguments -C \
 	'--contiguous[Request contiguous nodes]' \
 	'--cores-per-socket=-[Number of cores per socket]:cores:' \
 	'--cpu-bind=-[Bind tasks to CPUs]:binding_spec:' \
+	'(--label -l)'{-l,--label}'[Label task output with task IDs]' \
+	'(--unbuffered -u)'{-u,--unbuffered}'[Do not buffer stdout/stderr]' \
+	'(--kill-on-bad-exit -K)'{-K,--kill-on-bad-exit}'[Kill remaining tasks if one exits non-zero]' \
+	'--pty[Allocate a pseudo-terminal and run the command interactively]' \
+	'--multi-prog=-[Run different programs per task using config file]:config_file:_files' \
+	'--mpi=-[MPI type to use]:type:_slurm_mpi_types' \
 	'(-c --cpus-per-task)-c[CPUs per task]:cpus:' \
 	'(-c --cpus-per-task)--cpus-per-task=-[CPUs per task]:cpus:' \
 	'--deadline=-[Latest start or completion time]:time:' \
@@ -124,10 +130,11 @@ _arguments -C \
 	'--version[Show Slurm version]' \
 	'(-W --wait)'{-W,--wait}'[Wait for job completion]' \
 	'--wckey=-[Workload characterization key]:wckey:' \
-	'(-D --workdir)-D[Working directory]:directory:_files -/' \
-	'(-D --workdir)--workdir=-[Working directory]:directory:_files -/' \
+	'(-D --chdir)-D[Change working directory]:directory:_files -/' \
+	'(-D --chdir)--chdir=-[Change working directory]:directory:_files -/' \
 	'--wrap=-[Wrap command string]:command_string:' \
-	'1:script_file:_files -g "*.(sh|slurm|sbatch)"' \
+	'1:command:_command_names -e' \
+	'::arguments:_normal' \
 	&& ret=0
 
 return ret
