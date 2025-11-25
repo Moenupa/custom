@@ -56,3 +56,31 @@ _slurm_mpi_types() {
 	types=(none pmi2 pmix openmpi)
 	_describe 'mpi type' types
 }
+
+_slurm_running_jobs() {
+	local expl
+	local -a jobids
+
+	jobids=(${(f)"$(squeue -u $USER -h -o '%A' 2>/dev/null)"})
+	jobids=(${(u)jobids})
+	_describe 'Running Jobs' jobids
+}
+
+_slurm_hist_jobs() {
+	local expl
+	local -a running
+	running=(${(f)"$(squeue -u $USER -h -o '%A' 2>/dev/null)"})
+	running=(${(u)running})
+
+	local -a hist_jobs
+	hist_jobs=(${(f)"$(sacct -u $USER -n -X -P -S now-3days -o JobID 2>/dev/null | grep -E '^[0-9]+')"})
+	hist_jobs=(${(u)hist_jobs})
+
+	_wanted running expl 'Running Jobs' compadd -a running
+	if [[ -n $running ]]; then
+	fi
+
+	_wanted hist_jobs expl 'Past 3-day Jobs' compadd -a hist_jobs
+	if [[ -n $hist_jobs ]]; then
+	fi
+}

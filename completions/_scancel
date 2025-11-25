@@ -1,0 +1,39 @@
+#compdef scancel
+#description:scancel in slurm
+#
+# Zsh completion for Slurm's scancel command
+#
+# This script provides completions for scancel options and job ids.
+#
+# To install:
+# 1. Save this file as `_scancel` in a directory that is part of your FPATH.
+#    For example: ~/.zsh/completion/_scancel
+# 2. Make sure your .zshrc contains:
+#    fpath=(~/.zsh/completion $fpath)
+#    autoload -U compinit && compinit
+# 3. Restart your shell or run `unfunction _scancel && autoload _scancel`.
+
+local -a options
+local ret=1
+
+_arguments -C \
+	'(-A --account)-A[Filter by account]:account:_slurm_accounts' \
+	'(-A --account)--account=-[Filter by account]:account:_slurm_accounts' \
+	'(-p --partition)-p[Filter by partition]:partition:_slurm_partitions' \
+	'(-p --partition)--partition=-[Filter by partition]:partition:_slurm_partitions' \
+	'(-u --user)-u[Filter by user]:user:_users' \
+	'(-u --user)--user=-[Filter by user]:user:_users' \
+	'(-n --name)-n[Filter by job name]:name:' \
+	'(-n --name)--name=-[Filter by job name]:name:' \
+	'--qos=-[Filter by QoS]:qos:_slurm_qos' \
+	'(-t --state)-t[Filter by job state]:state:(PENDING RUNNING SUSPENDED COMPLETED CANCELLED FAILED TIMEOUT)' \
+	'(-t --state)--state=-[Filter by job state]:state:(PENDING RUNNING SUSPENDED COMPLETED CANCELLED FAILED TIMEOUT)' \
+	'--signal=-[Send signal instead of cancel]:signal:_signals' \
+	'(-Q --quiet)'{-Q,--quiet}'[Suppress informational messages]' \
+	'--me[Filter to current user]' \
+	'--help[Show help]' \
+	'--version[Show Slurm version]' \
+	'*:job_id or range:_slurm_running_jobs' \
+	&& ret=0
+
+return ret
