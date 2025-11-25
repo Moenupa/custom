@@ -68,7 +68,7 @@ _arguments -C \
 	'(-i --input)--input=-[File for stdin]:file:_files' \
 	'(-J --job-name)-J[Job name]:job_name:' \
 	'(-J --job-name)--job-name=-[Job name]:job_name:' \
-	'--job-id=-[Internal use job id]:job_id:' \
+	'--jobid=-[Initiate a job step under an already allocated job with job id]:job_id:' \
 	'(-L --licenses)-L[Required licenses]:license_spec:' \
 	'(-L --licenses)--licenses=-[Required licenses]:license_spec:' \
 	'--kill-on-invalid-dep[Cancel job if dependency invalid]' \
