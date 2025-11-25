@@ -5,7 +5,7 @@ fi
 
 # better default formats
 export SQUEUE_FORMAT="%.10i %.5P %.30j %.10u %.2t %.12M %.2D %R"
-export SACCT_FORMAT="JobID%-10,JobName%-24,State,ExitCode,Start,End,Elapsed,NodeList,WorkDir%-10"
+export SACCT_FORMAT="JobID%-10,JobName%-30,State,ExitCode,Start,End,Elapsed,NodeList,WorkDir%30"
 
 # shortcuts, should not conflict
 sb() {
@@ -89,36 +89,12 @@ sll() {
 	done
 }
 
-# completion for slurm job ids
-_slurm_jobids() {
-	local expl
-	local -a running
-	running=(${(f)"$(squeue -u $USER -h -o '%A' 2>/dev/null)"})
-	running=(${(u)running})
-
-	local -a hist_jobs
-	hist_jobs=(${(f)"$(sacct -u $USER -n -X -P -S now-3days -o JobID 2>/dev/null | grep -E '^[0-9]+')"})
-	hist_jobs=(${(u)hist_jobs})
-
-	if [[ -n $running ]]; then
-		_wanted running expl 'Running Jobs' compadd -a running
-	fi
-
-	if [[ -n $hist_jobs ]]; then
-		_wanted hist_jobs expl 'Past 3-day Jobs' compadd -a hist_jobs
-	fi
-}
-_running_jobids() {
-	local expl
-	local -a jobids
-
-	jobids=(${(f)"$(squeue -u $USER -h -o '%A' 2>/dev/null)"})
-	jobids=(${(u)jobids})
-	_arguments \
+_sl() {
+	_arguments -C \
 		'(-o --stdout)'{-o,--stdout}'[Show stdout]' \
 		'(-e --stderr)'{-e,--stderr}'[Show stderr]' \
-		'*:jobid:->jobids'
+		'*:jobid:_slurm_running_jobs'
 }
 
-compdef _running_jobids sl
-compdef _slurm_jobids sll
+compdef _sl sl
+compdef _slurm_hist_jobs sll
