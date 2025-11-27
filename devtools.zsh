@@ -3,7 +3,6 @@ alias zshconfig='vim ~/.zshrc'
 alias sshconfig='vim ~/.ssh/config'
 
 alias duhid='du -sh .[^.]*'
-alias duall='du -sh *'
 
 alias tf='tail -f'
 
@@ -19,36 +18,21 @@ else
     alias z=cd
 fi
 
-pub() {
-	if [ $# -ne 1 ]; then
-		echo "Usage: $0 <directory>"
-		echo "  Recursively chmod 777 dir/**/subdirs and 744 dir/**/subfiles."
-		exit 1
-	fi
-
-	local dir="$1"
-	# Check if the directory exists
-	if [ ! -d "$dir" ]; then
-		echo "Error: not dir '$dir'."
-		return 1
-	fi
-
-	# Use find to recursively process the directory
-
-	find "$dir" -type d -print0 | while IFS= read -r -d $'\0' subdir; do
-		chmod 777 "$subdir"
-		if [ $? -ne 0 ]; then
-			echo "Error: Failed to chmod 777 '$subdir'"
-		fi
-	done
-
-	find "$dir" -type f -print0 | while IFS= read -r -d $'\0' subfile; do
-		chmod 744 "$subfile"
-		if [ $? -ne 0 ]; then
-			echo "Error: Failed to chmod 744 '$subfile'"
-		fi
-	done
-
-	echo "finished publishing '$dir': 777 subdirs, 744 subfiles."
-	return 0
-}
+# # Function to prepend directories to PATH if not already present
+# prepend_path() {
+#     # $1: existing PATH
+#     # $@: directories to prepend (from $2 onwards)
+#     local new_path="$1"
+#     shift
+#     for dir in "$@"; do
+#         case ":${new_path}:" in
+#             *:"$dir":*)
+#                 # already present, skip
+#                 ;;
+#             *)
+#                 new_path="$dir:$new_path"
+#                 ;;
+#         esac
+#     done
+#     echo $new_path
+# }
