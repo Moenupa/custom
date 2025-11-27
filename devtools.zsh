@@ -15,24 +15,24 @@ fi
 if command -v zoxide &> /dev/null; then
 	eval "$(zoxide init zsh)"
 else
-    alias z=cd
+	alias z=cd
 fi
 
 # # Function to prepend directories to PATH if not already present
 # prepend_path() {
-#     # $1: existing PATH
-#     # $@: directories to prepend (from $2 onwards)
-#     local new_path="$1"
-#     shift
-#     for dir in "$@"; do
-#         case ":${new_path}:" in
-#             *:"$dir":*)
-#                 # already present, skip
-#                 ;;
-#             *)
-#                 new_path="$dir:$new_path"
-#                 ;;
-#         esac
-#     done
-#     echo $new_path
+# 	# $1: existing PATH
+# 	# $@: directories to prepend (from $2 onwards)
+# 	local new_path="$1"
+# 	shift
+# 	for dir in "$@"; do
+# 		case ":${new_path}:" in
+# 			*:"$dir":*)
+# 				# already present, skip
+# 				;;
+# 			*)
+# 				new_path="$dir:$new_path"
+# 				;;
+# 		esac
+# 	done
+# 	echo $new_path
 # }
