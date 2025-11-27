@@ -5,11 +5,9 @@ fi
 
 alias py='python3'
 alias pyconfig='vim pyproject.toml'
-alias va='conda activate'
-alias vd='conda deactivate'
-alias vva='source .venv/bin/activate'
-alias vvd='deactivate'
-alias hfdataset='hf download --repo-type dataset'
+alias va='source .venv/bin/activate'
+alias vd='deactivate'
+alias hfdata='hf download --repo-type dataset'
 
 if command -v ruff &> /dev/null; then
 	alias ff='ruff format'
