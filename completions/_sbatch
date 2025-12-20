@@ -128,6 +128,7 @@ _arguments -C \
 	'(-D --workdir)--workdir=-[Working directory]:directory:_files -/' \
 	'--wrap=-[Wrap command string]:command_string:' \
 	'1:script_file:_files -g "*.(sh|slurm|sbatch)"' \
+	'*::script_args:_default' \
 	&& ret=0
 
 return ret

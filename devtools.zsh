@@ -1,7 +1,7 @@
 # --- collection of some dev tools ---
 alias zshconfig='vim ~/.zshrc'
 alias sshconfig='vim ~/.ssh/config'
-
+alias gm='git commit -m'
 alias duhid='du -sh .[^.]*'
 
 alias tf='tail -f'
