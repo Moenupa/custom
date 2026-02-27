@@ -3,10 +3,6 @@ if ! command -v scontrol &> /dev/null; then
 	return
 fi
 
-# better default formats
-export SQUEUE_FORMAT="%.10i %.5P %.30j %.10u %.2t %.12M %.2D %R"
-export SACCT_FORMAT="JobID%-10,JobName%-30,State,ExitCode,Start,End,Elapsed,NodeList,WorkDir%30"
-
 # shortcuts, should not conflict
 sb() {
 	local output jobid
@@ -15,15 +11,6 @@ sb() {
 	echo $output
 	echo "$(sl $jobid)"
 }
-alias scc='scancel'
-alias sq='squeue'
-alias sd='scontrol show jobid -d'
-alias usq="squeue -u $USER"
-alias slist="sacct -u $USER -X -S now-3days"
-# sorted by start time
-alias shist="(slist | head -n 2; slist -n | sort -k 5 -r)"
-# sorted by end time
-alias slast="(slist | head -n 2; slist -n | sort -k 6 -r)"
 
 sl() {
 	# Parse options
