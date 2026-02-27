@@ -14,10 +14,11 @@ Install:
 - fish: `mkdir ~/.config && ln -s ~/.custom ~/.config/fish`
 - zsh: edit `~/.zshrc` and register plugins:
     ```bash
-        plugins=(
-            vi-mode
-            zsh-history-substring-search
-            zsh-autosuggestions
-            zsh-syntax-highlighting
-        )
+    source "$ZSH_CUSTOM/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+    plugins=(
+        vi-mode
+        zsh-history-substring-search
+        zsh-autosuggestions
+        zsh-syntax-highlighting
+    )
     ```

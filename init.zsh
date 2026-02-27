@@ -30,9 +30,6 @@ bindkey '^[[B' history-substring-search-down
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
-if [ -f "$CUSTOM/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]; then
-    source "$CUSTOM/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
-fi
 if [ -f "$HOME/.template/init.zsh" ]; then
     source "$HOME/.template/init.zsh"
 fi
