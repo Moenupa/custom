@@ -6,8 +6,8 @@ export HF_TOKEN=
 export TOKENIZERS_PARALLELISM=true
 
 # some dirs for quick access
-export PRJ=
-export LST=
+export prj=
+export lst=
 
 export CUSTOM="$HOME/.custom"
 export ZSH_CUSTOM="$CUSTOM"

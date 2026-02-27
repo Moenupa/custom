@@ -8,8 +8,8 @@ alias gm='git commit -m'
 alias duhid='du -sh .[^.]*'
 alias tf='tail -f'
 
-alias prj='cd $PRJ'
-alias lst='cd $LST'
+alias prj='cd $prj'
+alias lst='cd $lst'
 
 # assume adaptive_alias defined, syntax: adaptive_alias better_cmd fallback_cmd
 # if better_cmd exists, alias fallback_cmd to better_cmd
