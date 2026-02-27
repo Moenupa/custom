@@ -12,4 +12,12 @@ Install:
 
 - bash/sh: `echo "source ~/.custom/alias.profile" >> ~/.profile`
 - fish: `mkdir ~/.config && ln -s ~/.custom ~/.config/fish`
-- zsh: all set! nothing to do
+- zsh: edit `~/.zshrc` and register plugins:
+    ```bash
+        plugins=(
+            vi-mode
+            zsh-history-substring-search
+            zsh-autosuggestions
+            zsh-syntax-highlighting
+        )
+    ```

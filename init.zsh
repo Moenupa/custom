@@ -5,8 +5,8 @@ adaptive_alias () {
 	fi
 }
 
-export ZSH_CUSTOM=$CUSTOM
 source $CUSTOM/alias.profile
+export ZSH_THEME="headline"
 
 if command -v zoxide &> /dev/null; then
 	eval "$(zoxide init zsh)"
@@ -29,3 +29,10 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
+
+if [ -f "$CUSTOM/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]; then
+    source "$CUSTOM/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+fi
+if [ -f "$HOME/.template/init.zsh" ]; then
+    source "$HOME/.template/init.zsh"
+fi
