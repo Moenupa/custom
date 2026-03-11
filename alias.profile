@@ -13,6 +13,7 @@ alias lst='cd $lst'
 
 # assume adaptive_alias defined, syntax: adaptive_alias better_cmd fallback_cmd
 # if better_cmd exists, alias fallback_cmd to better_cmd
+adaptive_alias "vim" "vi"
 adaptive_alias "bat" "cat"
 adaptive_alias "podman" "docker"
 adaptive_alias "tldr" "eg"
