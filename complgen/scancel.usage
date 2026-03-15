@@ -1,4 +1,4 @@
-scancel ([<SCANCEL_OPTION>]... || --) <QUEUED_JOBIDS>...;
+scancel (<QUEUED_JOBIDS> || [<SCANCEL_OPTION>])...;
 
 <SCANCEL_OPTION> ::=
 	(-A <ACCOUNT> | --account=<ACCOUNT>) "act only on jobs charging this account"
@@ -26,17 +26,17 @@ scancel ([<SCANCEL_OPTION>]... || --) <QUEUED_JOBIDS>...;
 	| --usage "display brief usage message"
 	;
 
-<CLUSTER> ::= {{{ sacctmgr show cluster -n -P format=clusters }}};
-<ACCOUNT> ::= {{{ sacctmgr show account -n -P format=account }}};
-<QOS> ::= {{{ sacctmgr show qos -n -P format=name }}};
-<USER> ::= {{{ sacctmgr show user -n -P format=user }}};
-<RESERVATION> ::= {{{ sacctmgr show reservation -n -P format=name }}};
-<PARTITION> ::= {{{ sinfo -h -o '%P' }}};
+<ACCOUNT> ::= {{{ sacctmgr show account -nP format=account }}};
+<CLUSTER> ::= {{{ sacctmgr show cluster -nP format=clusters }}};
+<PARTITION> ::= {{{ sinfo -ho '%P' }}};
+<QOS> ::= {{{ sacctmgr show qos -nP format=name }}};
+<QUEUED_JOBIDS> ::= {{{ squeue -u $USER -ho '%A' }}};
+<QUEUED_JOBNAMES> ::= {{{ squeue -u $USER -ho '%j' }}};
+<RESERVATION> ::= {{{ sacctmgr show reservation -nP format=name }}};
 <STATE> ::= PENDING | RUNNING | SUSPENDED;
+<USER> ::= {{{ sacctmgr show user -nP format=user }}};
+<WCKEY> ::= {{{ squeue -u $USER -ho '%w' }}};
 
-<QUEUED_JOBIDS> ::= {{{ squeue -u $USER -h -o '%A' }}};
-<QUEUED_JOBNAMES> ::= {{{ squeue -u $USER -h -o '%j' }}};
-<WCKEY> ::= {{{ sacct -n -X --format=wckey }}};
 <SIGNAL> ::=
 	1 | SIGHUP
 	| 2 | SIGINT

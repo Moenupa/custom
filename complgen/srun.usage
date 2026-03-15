@@ -1,0 +1,191 @@
+srun [<SRUN_OPTION>]... <EXE> [<PATH>]...;
+
+<SRUN_OPTION> ::=
+    (-A <ACCOUNT> | --account=<ACCOUNT>) "charge job to specified account"
+    | --acctg-freq=<ACCTGFREQ>||[,<ACCTGFREQ>]... "accounting and profiling sampling"
+    | --bb=[spec] "burst buffer specifications"
+    | --bbf=<PATH> "burst buffer specification file"
+    | --bcast=<PATH> "Copy executable file to compute nodes"
+    | --bcast-exclude=<PATH>||[,<PATH>] "Shared object directory paths to exclude"
+    | (-b <TIME> | --begin=<TIME>) "defer job until HH:MM MM/DD/YY"
+    | (-c <NUM> | --cpus-per-task=<NUM>) "number of cpus required per task"
+    | --comment=[...] "arbitrary comment"
+    | --compress[=<COMPRESS>] "data compression library used with --bcast"
+    | --container=<PATH> "Path to OCI container bundle"
+    | --container-id=[...] "OCI container ID"
+    | --cpu-freq=<P1>[-<P2>][:<P3>] "requested cpu frequency (and governor)"
+    | (-d <DEPENDENCY>||[,<DEPENDENCY>]... | --dependency=<DEPENDENCY>||[,<DEPENDENCY>]...) "defer job until condition on jobid is satisfied"
+    | --deadline=<TIME> "remove the job if no ending possible before this deadline (start > (deadline - time[-min]))"
+    | --delay-boot=<NUM> "delay boot for desired node features"
+    | (-D <DIRECTORY> | --chdir=<DIRECTORY>) "change remote current working directory"
+    | --export=<EXPORT> "environment variables passed to launcher with optional values or NONE (pass no variables)"
+    | (-e <PATH> | --error=<PATH>) "location of stderr redirection"
+    | --epilog=(none | <EXE>) "run 'program' after launching job step"
+    | (-E | --preserve-env) "env vars for node and task counts override"
+    | --gres=<GRES> "required generic resources"
+    | --gres-flags=<GRES_FLAG> "flags related to GRES management"
+    | (-H | --hold) "submit job in held state"
+    | (-i <PATH> | --input=<PATH>) "location of stdin redirection"
+    | (-I [<NUM>] | --immediate[=<NUM>]) "exit if resources not available in secs"
+    | --jobid=<QUEUED_JOBIDS> "run under already allocated job"
+    | (-J <QUEUED_JOBNAMES> | --job-name=<QUEUED_JOBNAMES>) "name of job"
+    | (-k | --no-kill) "do not kill job on node failure"
+    | (-K | --kill-on-bad-exit) "kill the job if any task terminates with a"
+    | (-l | --label) "prepend task number to lines of stdout/err"
+    | (-L <LICENSE>||[,<LICENSE>[:<NUM>]]... | --licenses=<LICENSE>||[,<LICENSE>[:<NUM>]]...) "required license, comma separated"
+    | (-M <CLUSTER> | --clusters=<CLUSTER>) "Comma separated list of clusters to issue"
+    | (-m <DISTRIBUTION> | --distribution=<DISTRIBUTION>) "distribution method for processes to nodes"
+    | --mail-type=<MAIL_TYPE> "notify on state change: BEGIN, END, FAIL or ALL"
+    | --mail-user=<USER> "who to send email notification for job state changes"
+    | --mcs-label=[...] "mcs label if mcs plugin mcs/group is used"
+    | --mpi=<MPI> "type of MPI being used"
+    | --multi-prog "if set the program name specified is the configuration specification for multiple programs"
+    | (-n <NUM> | --ntasks=<NUM>) "number of tasks to run"
+    | --nice[=<NUM>] "decrease scheduling priority by value"
+    | --ntasks-per-node=<NUM> "number of tasks to invoke on each node"
+    | (-N <NUM> | --nodes=<NUM>) "number of nodes on which to run (N = min[-max])"
+    | (-o <PATH> | --output=<PATH>) "location of stdout redirection"
+    | (-O | --overcommit) "overcommit resources"
+    | --overlap "Allow other steps to overlap this step"
+    | --het-group=<NUM> "hetjob component allocation(s) in which to launch application"
+    | (-p <PARTITION> | --partition=<PARTITION>) "partition requested"
+    | --power=[...] "power management options"
+    | --priority=<NUM> "set the priority of the job to value"
+    | --prolog=(none | <EXE>) "run 'program' before launching job step"
+    | --profile=(all | none | <DATATYPE>||[,<DATATYPE>]...) "enable acct_gather_profile for detailed data value is all or none or any combination of energy, lustre, network or task"
+    | --propagate[=rlimits] "propagate all [or specific list of] rlimits"
+    | --pty[=fd] "run task zero in pseudo terminal [or in requested terminal given by fd]"
+    | --quit-on-interrupt "quit on single Ctrl-C"
+    | (-q <QOS> | --qos=<QOS>) "quality of service"
+    | (-Q | --quiet) "quiet mode (suppress informational messages)"
+    | --reboot "reboot block before starting job"
+    | (-r <NUM> | --relative=<NUM>) "run job step relative to node n of allocation"
+    | (-s | --oversubscribe) "over-subscribe resources with other jobs"
+    | (-S <NUM> | --core-spec=<NUM>) "count of reserved cores"
+    | --send-libs=(yes|no) "autodetect and broadcast shared objects"
+    | --signal=[R:]<SIGNAL>[<INTERVAL>] "send signal when time limit within time seconds"
+    | --slurmd-debug=<LEVEL> "slurmd debug level"
+    | --spread-job "spread job across as many nodes as possible"
+    | --task-epilog=<EXE> "run 'program' after launching task"
+    | --task-prolog=<EXE> "run 'program' before launching task"
+    | --thread-spec=<NUM> "count of reserved threads"
+    | (-T <NUM> | --threads=<NUM>) "set srun launch fanout"
+    | (-t <TIME> | --time=<TIME>) "time limit"
+    | --time-min=<TIME> "minimum time limit (if distinct)"
+    | --tres-bind=[...] "task to tres binding options"
+    | --tres-per-task=[...] "list of tres required per task"
+    | (-u | --unbuffered) "do not line-buffer stdout/err"
+    | --use-min-nodes "if a range of node counts is given, prefer the smaller count"
+    | (-v | --verbose) "verbose mode (multiple -v's increase verbosity)"
+    | (-W <NUM> | --wait=<NUM>) "seconds to wait after first task exits"
+    | --wckey=<WCKEY> "wckey to run job under"
+    | (-X | --disable-status) "Disable Ctrl-C status feature"
+    | --cluster-constraint=<FEATURE>||[,<FEATURE>]... "specify a list of cluster-constraints"
+    | --contiguous "demand a contiguous range of nodes"
+    | (-C <FEATURE>||[,<FEATURE>]... | --constraint=<FEATURE>||[,<FEATURE>]...) "specify a list of constraints"
+    | --mem=<NUM>[<SPACEUNIT>] "minimum amount of real memory"
+    | --mincpus=<NUM> "minimum number of logical processors (threads) per node"
+    | --reservation=<RESERVATION> "allocate resources from named reservation"
+    | --tmp=<NUM> "minimum amount of temporary disk"
+    | (-w (<NODE>||[,<NODE>]...||<PATH>) | --nodelist=(<NODE>||[,<NODE>]...||<PATH>)) "request a specific list of hosts"
+    | (-x (<NODE>||[,<NODE>]...||<PATH>) | --exclude=(<NODE>||[,<NODE>]...||<PATH>)) "exclude a specific list of hosts"
+    | (-Z | --no-allocate) "don't allocate nodes (must supply -w)"
+    | --exact "use only the resources requested for the step (by default, all non-gres resources on each node in the allocation will be used in the step)"
+    | --exclusive[=user] "for job allocation, this allocates nodes in in exclusive mode for job steps, this is equivalent to --exact"
+    | --exclusive[=mcs] "allocate nodes in exclusive mode when cpu consumable resource is enabled and mcs plugin is enabled (--exact implied) or don't share CPUs for job steps"
+    | --mem-per-cpu=<NUM>[<SPACEUNIT>] "maximum amount of real memory per allocated cpu required by the job. --mem >= --mem-per-cpu if --mem is specified."
+    | --resv-ports "reserve communication ports"
+    | --sockets-per-node=<NUM> "number of sockets per node to allocate"
+    | --cores-per-socket=<NUM> "number of cores per socket to allocate"
+    | --threads-per-core=<NUM> "number of threads per core to allocate"
+    | (-B <NUM> | --extra-node-info=<NUM>) "combine request of sockets per node,"
+    | --ntasks-per-core=<NUM> "number of tasks to invoke on each core"
+    | --ntasks-per-socket=<NUM> "number of tasks to invoke on each socket"
+    | --cpu-bind=[...] "Bind tasks to CPUs (see '--cpu-bind=help' for options)"
+    | --hint=[...] "Bind tasks according to application hints (see '--hint=help' for options)"
+    | --cpus-per-gpu=<NUM> "number of CPUs required per allocated GPU"
+    | (-G <NUM> | --gpus=<NUM>) "count of GPUs required for the job"
+    | --gpu-bind=[...] "task to gpu binding options"
+    | --gpu-freq=[...] "frequency and voltage of GPUs"
+    | --gpus-per-node=<NUM> "number of GPUs required per allocated node"
+    | --gpus-per-socket=<NUM> "number of GPUs required per allocated socket"
+    | --gpus-per-task=<NUM> "number of GPUs required per spawned task"
+    | --mem-per-gpu=<NUM> "real memory required per allocated GPU"
+    | (-h | --help) "show this help message"
+    | --usage "display brief usage message"
+    | (-V | --version) "output version information and exit"
+    ;
+
+<ACCOUNT> ::= {{{ sacctmgr show account -nP format=account }}};
+<ACCTGFREQ> ::= [<DATATYPE>=(0 | 30)];
+<CLUSTER> ::= {{{ sacctmgr show cluster -nP format=clusters }}};
+<COMPRESS> ::= lz4 | none;
+<DATATYPE> ::= (task | energy | network | filesystem);
+<DEPENDENCY_TYPE> ::= after | afterany | afterok | aftercorr | afternotok;
+<DEPENDENCY> ::= [<DEPENDENCY_TYPE>:<QUEUED_JOBIDS>[:<QUEUED_JOBIDS>]...];
+<DISTRIBUTION> ::= block | cyclic | arbitrary | plane;
+<FEATURE> ::= {{{ sinfo -ho %f }}};
+<GRES_FLAG> ::= allow-task-sharing | multiple-tasks-per-sharing | disable-binding | enforce-binding | one-task-per-sharing;
+<GRES> ::= {{{ sinfo -ho "%G" | sed 's/([^)]*)//g' | tr ':' '\n' | grep -v '^[0-9]' | sort -u }}};
+<LICENSE> ::= {{{ scontrol show lic }}};
+<MAIL_TYPE> ::= NONE | BEGIN | END | FAIL | ALL | REQUEUE | STAGE_OUT | TIME_LIMIT | TIME_LIMIT_90 | TIME_LIMIT_80 | TIME_LIMIT_50 | ARRAY_TASKS;
+<MPI> ::= cray_shasta | list | pmi2 | pmix | none;
+<NODE> ::= {{{ sinfo -ho %n }}};
+<P1> ::= <NUM> | low | medium | high | highm1;
+<P2> ::= <NUM> | medium | high | highm1;
+<P3> ::= Conservative | OnDemand | Performance | PowerSave | SchedUtil | UserSpace;
+<PARTITION> ::= {{{ sinfo -ho %P }}};
+<QOS> ::= {{{ sacctmgr show qos -nP format=name }}};
+<QUEUED_JOBIDS> ::= {{{ squeue -u $USER -ho '%A' }}};
+<QUEUED_JOBNAMES> ::= {{{ squeue -u $USER -ho '%j' }}};
+<RESERVATION> ::= {{{ sacctmgr show reservation -nP format=name }}};
+<USER> ::= {{{ sacctmgr show user -nP format=user }}};
+<WCKEY> ::= {{{ squeue -u $USER -ho '%w' }}};
+
+<INT> ::= 0|1|2|3|4|5|6|7|8|9;
+<NUM> ::= 0|1[<INT>]...|2[<INT>]...|3[<INT>]...|4[<INT>]...|5[<INT>]...|6[<INT>]...|7[<INT>]...|8[<INT>]...|9[<INT>]...;
+<INTERVAL> ::= 60[s|m|h];
+<SPACEUNIT> ::= K | M | G | T;
+<EXPORT> ::= ALL[,ENVVAR] | NONE;
+<TIME> ::= (now[+1[seconds|minutes|hours|days|weeks]]) | HH:MM[:SS] | MMDDYY | MM/DD/YY | YYYY-MM-DD | YYYY-MM-DD[THH:MM[:SS]];
+<EXE@bash> ::= {{{ compgen -c }}};
+<EXE@zsh> ::= {{{ compgen -c }}};
+<EXE@fish> ::= {{{ __fish_complete_command }}};
+<LEVEL> ::= (2 | error) | (3 | info) | (4 | verbose) | (5 | debug) | (6 | debug2);
+
+<SIGNAL> ::=
+	1 | SIGHUP
+	| 2 | SIGINT
+	| 3 | SIGQUIT
+	| 4 | SIGILL
+	| 5 | SIGTRAP
+	| 6 | SIGIOT | SIGABRT
+	| 7 | SIGEMT
+	| 8 | SIGFPE
+	| 9 | SIGKILL
+	| 10 | SIGBUS
+	| 11 | SIGSEGV
+	| 12 | SIGSYS
+	| 13 | SIGPIPE
+	| 14 | SIGALRM
+	| 15 | SIGTERM
+	| 16 | SIGUSR1
+	| 17 | SIGUSR2
+	| 18 | SIGCLD | SIGCHLD
+	| 19 | SIGPWR
+	| 20 | SIGWINCH
+	| 21 | SIGURG
+	| 22 | SIGPOLL | SIGIO
+	| 23 | SIGSTOP
+	| 24 | SIGTSTP
+	| 25 | SIGCONT
+	| 26 | SIGTTIN
+	| 27 | SIGTTOU
+	| 28 | SIGVTALRM
+	| 29 | SIGPROF
+	| 30 | SIGXCPU
+	| 31 | SIGXFSZ
+	| 32 | SIGWAITING
+	| 33 | SIGLWP
+	| 34 | SIGAIO
+	;
