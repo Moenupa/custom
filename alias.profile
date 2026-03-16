@@ -41,3 +41,5 @@ alias usq="squeue -u $USER"
 alias slist="sacct -u $USER -X -S now-3days"
 alias shist='slist | head -n 2; slist -n | sort -k 5 -r' # sorted by start time
 alias slast='slist | head -n 2; slist -n | sort -k 6 -r' # sorted by end time
+alias sl="python $CUSTOM/findlog.py"
+alias sll="sl --local"
