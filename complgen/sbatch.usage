@@ -1,7 +1,7 @@
-sbatch [<SBATCH_OPTION>]... <SBATCH_SCRIPT> [<PATH> || <EXE> || --]...;
+sbatch [<SBATCH_OPTION>]... (<SBATCH_SCRIPT> | <DIRECTORY>) [<PATH> || <EXE> || --]...;
 
 <SBATCH_OPTION> ::=
-	(-a | --array=<NUM>) "job array index values"
+	(-a | --array=<NUM>[(,|-)<NUM>[(%|:)<NUM>]]) "job array index values"
 	| (-A | --account=<ACCOUNT>) "charge job to specified account"
 	| --bb=[spec] "burst buffer specifications"
 	| --bbf=<PATH> "burst buffer specification file"
@@ -94,21 +94,11 @@ sbatch [<SBATCH_OPTION>]... <SBATCH_SCRIPT> [<PATH> || <EXE> || --]...;
 	| (-h | --help) "show this help message"
 	| --usage "display brief usage message"
 	| (-V | --version) "output version information and exit"
-;
+	;
 
-<SBATCH_SCRIPT> ::= {{{ find -L . \
--path '*/.*' -prune -o \
--path '*/_*' -prune -o \
--path '*/*asset*' -prune -o \
--path '*/*cache*' -prune -o \
--path '*/data*' -prune -o \
--path '*/doc*' -prune -o \
--path '*/lib*' -prune -o \
--path '*/*log*' -prune -o \
--path '*/node*' -prune -o \
--path '*/saves' -prune -o \
--path '*/wandb' -prune -o \
--type f -name '*.sbatch' -print }}};
+<SBATCH_SCRIPT@fish> ::= {{{ __fish_complete_directories "$1" && __fish_complete_path "$1" "Script" | string match -e '.sbatch' }}};
+<SBATCH_SCRIPT@zsh> ::= {{{ _files -g "*.sbatch" }}};
+<SBATCH_SCRIPT@bash> ::= {{{ compgen -f -- "$1" | grep -e '.sbatch' }}};
 
 <ACCOUNT> ::= {{{ sacctmgr show account -nP format=account }}};
 <CLUSTER> ::= {{{ sacctmgr show cluster -nP format=clusters }}};
@@ -133,8 +123,7 @@ sbatch [<SBATCH_OPTION>]... <SBATCH_SCRIPT> [<PATH> || <EXE> || --]...;
 <USER> ::= {{{ sacctmgr show user -nP format=user }}};
 <WCKEY> ::= {{{ squeue -u $USER -ho '%w' }}};
 
-<INT> ::= 0|1|2|3|4|5|6|7|8|9;
-<NUM> ::= 0|1[<INT>]...|2[<INT>]...|3[<INT>]...|4[<INT>]...|5[<INT>]...|6[<INT>]...|7[<INT>]...|8[<INT>]...|9[<INT>]...;
+<NUM> ::= 0||1|2|3|4|5|6|7|8|9;
 <INTERVAL> ::= 60[s|m|h];
 <SPACEUNIT> ::= K | M | G | T;
 <EXPORT> ::= ALL[,ENVVAR] | NONE | NIL;

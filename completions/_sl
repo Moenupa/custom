@@ -15,7 +15,6 @@ _sl_subword_1 () {
     subword_literal_transitions[2]="([2]=3 [1]=4)"
     subword_literal_transitions[1]="([3]=2)"
     subword_literal_transitions[3]="([1]=4)"
-    declare -A subword_star_transitions=()
     declare -A subword_literal_transitions_level_0=()
     declare -A subword_literal_transitions_level_1=([2]="2 1" [1]="3" [3]="1")
     declare subword_max_fallback_level=1
@@ -32,7 +31,6 @@ _sl_subword_2 () {
     subword_literal_transitions[2]="([2]=3 [1]=4)"
     subword_literal_transitions[1]="([3]=2)"
     subword_literal_transitions[3]="([1]=4)"
-    declare -A subword_star_transitions=()
     declare -A subword_literal_transitions_level_0=()
     declare -A subword_literal_transitions_level_1=([2]="2 1" [1]="3" [3]="1")
     declare subword_max_fallback_level=1
@@ -49,7 +47,6 @@ _sl_subword_3 () {
     subword_literal_transitions[2]="([2]=3 [1]=4)"
     subword_literal_transitions[1]="([3]=2)"
     subword_literal_transitions[3]="([1]=4)"
-    declare -A subword_star_transitions=()
     declare -A subword_literal_transitions_level_0=()
     declare -A subword_literal_transitions_level_1=([2]="2 1" [1]="3" [3]="1")
     declare subword_max_fallback_level=1
@@ -66,7 +63,6 @@ _sl_subword_4 () {
     subword_literal_transitions[2]="([2]=3 [1]=4)"
     subword_literal_transitions[1]="([3]=2)"
     subword_literal_transitions[3]="([1]=4)"
-    declare -A subword_star_transitions=()
     declare -A subword_literal_transitions_level_0=()
     declare -A subword_literal_transitions_level_1=([2]="2 1" [1]="3" [3]="1")
     declare subword_max_fallback_level=1
@@ -108,11 +104,6 @@ _sl_subword () {
                 fi
             done
         fi
-        if [[ -v "subword_star_transitions[$subword_state]" ]]; then
-            matched=1
-            break
-        fi
-
         break
     done
 
@@ -172,7 +163,6 @@ _sl () {
     declare -A command_transitions=()
     command_transitions[2]="([0]=2)"
     command_transitions[1]="([0]=2)"
-    declare -A star_transitions=()
     declare -A subword_transitions=()
     subword_transitions[1]="([1]=2 [2]=2 [3]=2 [4]=2)"
     subword_transitions[2]="([1]=2 [2]=2 [3]=2 [4]=2)"
@@ -243,12 +233,6 @@ _sl () {
                     fi
                 fi
             done
-        fi
-
-        if [[ -v "star_transitions[$state]" ]]; then
-            state=${star_transitions[$state]}
-            word_index=$((word_index + 1))
-            continue
         fi
 
         return 1

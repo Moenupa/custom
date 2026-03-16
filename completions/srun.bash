@@ -215,13 +215,12 @@ _srun_subword_8 () {
 _srun_subword_9 () {
     local -a literals=("--cpus-per-task=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -302,18 +301,16 @@ _srun_subword_13 () {
 _srun_subword_14 () {
     local -a literals=("Conservative" "Performance" "--cpu-freq=" "UserSpace" "SchedUtil" "PowerSave" "OnDemand" "highm1" "medium" "high" "low" ":" "-" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([22]=2 [21]=3 [20]=3 [19]=3 [18]=3 [17]=3 [16]=3 [15]=3 [14]=3 [13]=3 [10]=2 [8]=2 [9]=2 [7]=2)"
-    literal_transitions[2]="([12]=4 [11]=5)"
+    literal_transitions[1]="([22]=2 [21]=2 [20]=2 [19]=2 [18]=2 [17]=2 [16]=2 [15]=2 [14]=2 [13]=2 [10]=2 [8]=2 [9]=2 [7]=2)"
+    literal_transitions[4]="([0]=5 [6]=5 [1]=5 [5]=5 [4]=5 [3]=5)"
+    literal_transitions[3]="([22]=6 [21]=6 [20]=6 [19]=6 [18]=6 [17]=6 [16]=6 [15]=6 [14]=6 [13]=6 [8]=6 [9]=6 [7]=6)"
+    literal_transitions[2]="([12]=3 [11]=4)"
     literal_transitions[0]="([2]=1)"
-    literal_transitions[7]="([11]=5)"
-    literal_transitions[5]="([0]=6 [6]=6 [1]=6 [5]=6 [4]=6 [3]=6)"
-    literal_transitions[4]="([22]=7 [21]=8 [20]=8 [19]=8 [18]=8 [17]=8 [16]=8 [15]=8 [14]=8 [13]=8 [8]=7 [9]=7 [7]=7)"
-    literal_transitions[3]="([22]=3 [21]=3 [20]=3 [19]=3 [18]=3 [17]=3 [16]=3 [15]=3 [14]=3 [13]=3 [12]=4 [11]=5)"
-    literal_transitions[8]="([22]=8 [21]=8 [20]=8 [19]=8 [18]=8 [17]=8 [16]=8 [15]=8 [14]=8 [13]=8 [11]=5)"
+    literal_transitions[6]="([11]=4)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="22 21 20 19 18 17 16 15 14 13 10 8 9 7" [2]="12 11" [0]="2" [7]="11" [5]="0 6 1 5 4 3" [4]="22 21 20 19 18 17 16 15 14 13 8 9 7" [3]="22 21 20 19 18 17 16 15 14 13 12 11" [8]="22 21 20 19 18 17 16 15 14 13 11")
+    local -A literal_transitions_level_0=([1]="22" [3]="22")
+    local -A literal_transitions_level_1=([1]="21 20 19 18 17 16 15 14 13" [3]="21 20 19 18 17 16 15 14 13")
+    local -A literal_transitions_level_2=([1]="10 8 9 7" [4]="0 6 1 5 4 3" [3]="8 9 7" [2]="12 11" [0]="2" [6]="11")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -402,13 +399,12 @@ _srun_subword_18 () {
 _srun_subword_19 () {
     local -a literals=("--delay-boot=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -542,13 +538,12 @@ _srun_subword_27 () {
     local -a literals=("--immediate" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0" "=")
     local -A literal_transitions=()
     literal_transitions[1]="([11]=2)"
-    literal_transitions[4]="([10]=4 [9]=4 [8]=4 [7]=4 [6]=4 [5]=4 [4]=4 [3]=4 [2]=4 [1]=4)"
-    literal_transitions[2]="([10]=3 [9]=4 [8]=4 [7]=4 [6]=4 [5]=4 [4]=4 [3]=4 [2]=4 [1]=4)"
     literal_transitions[0]="([0]=1)"
+    literal_transitions[2]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="11" [4]="10 9 8 7 6 5 4 3 2 1" [2]="10 9 8 7 6 5 4 3 2 1" [0]="0")
+    local -A literal_transitions_level_0=([2]="10")
+    local -A literal_transitions_level_1=([2]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([1]="11" [0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -594,14 +589,13 @@ _srun_subword_29 () {
 _srun_subword_30 () {
     local -a literals=("9" "8" "7" "6" "5" "4" "3" "2" "1" "0" ":" ",")
     local -A literal_transitions=()
-    literal_transitions[5]="([9]=5 [8]=5 [7]=5 [6]=5 [5]=5 [4]=5 [3]=5 [2]=5 [1]=5 [0]=5)"
-    literal_transitions[3]="([9]=4 [8]=5 [7]=5 [6]=5 [5]=5 [4]=5 [3]=5 [2]=5 [1]=5 [0]=5)"
     literal_transitions[2]="([10]=3)"
     literal_transitions[0]="([11]=1)"
+    literal_transitions[3]="([9]=4 [8]=4 [7]=4 [6]=4 [5]=4 [4]=4 [3]=4 [2]=4 [1]=4 [0]=4)"
     local -A command_transitions=()
     command_transitions[1]="([7]=2)"
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=([5]="9 8 7 6 5 4 3 2 1 0" [3]="9 8 7 6 5 4 3 2 1 0" [2]="10" [0]="11")
+    local -A literal_transitions_level_0=([3]="9")
+    local -A literal_transitions_level_1=([2]="10" [0]="11" [3]="8 7 6 5 4 3 2 1 0")
     local -A commands_level_0=([1]="7")
     local -A commands_level_1=()
     local max_fallback_level=1
@@ -627,15 +621,14 @@ _srun_subword_31 () {
 _srun_subword_32 () {
     local -a literals=("9" "8" "7" "6" "5" "4" "3" "2" "1" "0" ":" ",")
     local -A literal_transitions=()
-    literal_transitions[5]="([9]=5 [8]=5 [7]=5 [6]=5 [5]=5 [4]=5 [3]=5 [2]=5 [1]=5 [0]=5)"
-    literal_transitions[3]="([9]=4 [8]=5 [7]=5 [6]=5 [5]=5 [4]=5 [3]=5 [2]=5 [1]=5 [0]=5)"
     literal_transitions[2]="([10]=3)"
     literal_transitions[0]="([11]=1)"
+    literal_transitions[3]="([9]=4 [8]=4 [7]=4 [6]=4 [5]=4 [4]=4 [3]=4 [2]=4 [1]=4 [0]=4)"
     local -A command_transitions=()
     command_transitions[1]="([7]=2)"
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([5]="9 8 7 6 5 4 3 2 1 0" [3]="9 8 7 6 5 4 3 2 1 0" [2]="10" [0]="11")
+    local -A literal_transitions_level_0=([3]="9")
+    local -A literal_transitions_level_1=([3]="8 7 6 5 4 3 2 1 0")
+    local -A literal_transitions_level_2=([2]="10" [0]="11")
     local -A commands_level_0=([1]="7")
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -749,13 +742,12 @@ _srun_subword_38 () {
 _srun_subword_39 () {
     local -a literals=("--ntasks=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -768,13 +760,12 @@ _srun_subword_40 () {
     local -a literals=("--nice" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0" "=")
     local -A literal_transitions=()
     literal_transitions[1]="([11]=2)"
-    literal_transitions[4]="([10]=4 [9]=4 [8]=4 [7]=4 [6]=4 [5]=4 [4]=4 [3]=4 [2]=4 [1]=4)"
-    literal_transitions[2]="([10]=3 [9]=4 [8]=4 [7]=4 [6]=4 [5]=4 [4]=4 [3]=4 [2]=4 [1]=4)"
     literal_transitions[0]="([0]=1)"
+    literal_transitions[2]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="11" [4]="10 9 8 7 6 5 4 3 2 1" [2]="10 9 8 7 6 5 4 3 2 1" [0]="0")
+    local -A literal_transitions_level_0=([2]="10")
+    local -A literal_transitions_level_1=([2]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([1]="11" [0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -786,13 +777,12 @@ _srun_subword_40 () {
 _srun_subword_41 () {
     local -a literals=("--ntasks-per-node=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -804,13 +794,12 @@ _srun_subword_41 () {
 _srun_subword_42 () {
     local -a literals=("--nodes=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -839,13 +828,12 @@ _srun_subword_43 () {
 _srun_subword_44 () {
     local -a literals=("--het-group=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -891,13 +879,12 @@ _srun_subword_46 () {
 _srun_subword_47 () {
     local -a literals=("--priority=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -997,13 +984,12 @@ _srun_subword_52 () {
 _srun_subword_53 () {
     local -a literals=("--relative=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1015,13 +1001,12 @@ _srun_subword_53 () {
 _srun_subword_54 () {
     local -a literals=("--core-spec=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1121,13 +1106,12 @@ _srun_subword_59 () {
 _srun_subword_60 () {
     local -a literals=("--thread-spec=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1139,13 +1123,12 @@ _srun_subword_60 () {
 _srun_subword_61 () {
     local -a literals=("--threads=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1233,13 +1216,12 @@ _srun_subword_65 () {
 _srun_subword_66 () {
     local -a literals=("--wait=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_2=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1351,15 +1333,14 @@ _srun_subword_72 () {
 _srun_subword_73 () {
     local -a literals=("--mem=" "T" "G" "M" "K" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([14]=2 [13]=3 [12]=3 [11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3)"
-    literal_transitions[3]="([14]=3 [13]=3 [12]=3 [11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=4 [3]=4 [2]=4 [1]=4)"
-    literal_transitions[2]="([4]=4 [3]=4 [2]=4 [1]=4)"
+    literal_transitions[1]="([14]=2 [13]=2 [12]=2 [11]=2 [10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2)"
     literal_transitions[0]="([0]=1)"
+    literal_transitions[2]="([4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="14")
+    local -A literal_transitions_level_1=([1]="13 12 11 10 9 8 7 6 5")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="14 13 12 11 10 9 8 7 6 5" [3]="14 13 12 11 10 9 8 7 6 5 4 3 2 1" [2]="4 3 2 1" [0]="0")
+    local -A literal_transitions_level_3=([2]="4 3 2 1" [0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1372,14 +1353,13 @@ _srun_subword_73 () {
 _srun_subword_74 () {
     local -a literals=("--mincpus=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1411,14 +1391,13 @@ _srun_subword_75 () {
 _srun_subword_76 () {
     local -a literals=("--tmp=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1513,15 +1492,14 @@ _srun_subword_80 () {
 _srun_subword_81 () {
     local -a literals=("--mem-per-cpu=" "T" "G" "M" "K" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([14]=2 [13]=3 [12]=3 [11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3)"
-    literal_transitions[3]="([14]=3 [13]=3 [12]=3 [11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=4 [3]=4 [2]=4 [1]=4)"
-    literal_transitions[2]="([4]=4 [3]=4 [2]=4 [1]=4)"
+    literal_transitions[1]="([14]=2 [13]=2 [12]=2 [11]=2 [10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2)"
     literal_transitions[0]="([0]=1)"
+    literal_transitions[2]="([4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="14")
+    local -A literal_transitions_level_1=([1]="13 12 11 10 9 8 7 6 5")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="14 13 12 11 10 9 8 7 6 5" [3]="14 13 12 11 10 9 8 7 6 5 4 3 2 1" [2]="4 3 2 1" [0]="0")
+    local -A literal_transitions_level_3=([2]="4 3 2 1" [0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1534,14 +1512,13 @@ _srun_subword_81 () {
 _srun_subword_82 () {
     local -a literals=("--sockets-per-node=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1554,14 +1531,13 @@ _srun_subword_82 () {
 _srun_subword_83 () {
     local -a literals=("--cores-per-socket=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1574,14 +1550,13 @@ _srun_subword_83 () {
 _srun_subword_84 () {
     local -a literals=("--threads-per-core=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1594,14 +1569,13 @@ _srun_subword_84 () {
 _srun_subword_85 () {
     local -a literals=("--extra-node-info=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1614,14 +1588,13 @@ _srun_subword_85 () {
 _srun_subword_86 () {
     local -a literals=("--ntasks-per-core=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1634,14 +1607,13 @@ _srun_subword_86 () {
 _srun_subword_87 () {
     local -a literals=("--ntasks-per-socket=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1692,14 +1664,13 @@ _srun_subword_89 () {
 _srun_subword_90 () {
     local -a literals=("--cpus-per-gpu=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1712,14 +1683,13 @@ _srun_subword_90 () {
 _srun_subword_91 () {
     local -a literals=("--gpus=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1770,14 +1740,13 @@ _srun_subword_93 () {
 _srun_subword_94 () {
     local -a literals=("--gpus-per-node=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1790,14 +1759,13 @@ _srun_subword_94 () {
 _srun_subword_95 () {
     local -a literals=("--gpus-per-socket=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1810,14 +1778,13 @@ _srun_subword_95 () {
 _srun_subword_96 () {
     local -a literals=("--gpus-per-task=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1830,14 +1797,13 @@ _srun_subword_96 () {
 _srun_subword_97 () {
     local -a literals=("--mem-per-gpu=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
-    literal_transitions[1]="([10]=2 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
+    literal_transitions[1]="([10]=2 [9]=2 [8]=2 [7]=2 [6]=2 [5]=2 [4]=2 [3]=2 [2]=2 [1]=2)"
     literal_transitions[0]="([0]=1)"
-    literal_transitions[3]="([10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3 [1]=3)"
     local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
+    local -A literal_transitions_level_0=([1]="10")
+    local -A literal_transitions_level_1=([1]="9 8 7 6 5 4 3 2 1")
     local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="10 9 8 7 6 5 4 3 2 1" [0]="0" [3]="10 9 8 7 6 5 4 3 2 1")
+    local -A literal_transitions_level_3=([0]="0")
     local -A commands_level_0=()
     local -A commands_level_1=()
     local -A commands_level_2=()
@@ -1848,360 +1814,36 @@ _srun_subword_97 () {
 }
 
 _srun_subword_98 () {
-    local -a literals=("9" "8" "7" "6" "5" "4" "3" "2" "0" "1")
+    local -a literals=(",")
     local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
+    literal_transitions[0]="([0]=1)"
     local -A command_transitions=()
+    command_transitions[1]="([15]=2)"
     local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
+    local -A literal_transitions_level_1=([0]="0")
+    local -A commands_level_0=([1]="15")
     local -A commands_level_1=()
-    local -A commands_level_2=()
-    local max_fallback_level=2
+    local max_fallback_level=1
     local state=0
     _srun_subword "$1" "$2"
 }
 
 _srun_subword_99 () {
-    local -a literals=("9" "8" "7" "6" "5" "4" "3" "1" "0" "2")
+    local -a literals=(",")
     local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
+    literal_transitions[0]="([0]=1)"
     local -A command_transitions=()
+    command_transitions[1]="([15]=2)"
     local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
+    local -A literal_transitions_level_1=([0]="0")
+    local -A commands_level_0=([1]="15")
     local -A commands_level_1=()
-    local -A commands_level_2=()
-    local max_fallback_level=2
+    local max_fallback_level=1
     local state=0
     _srun_subword "$1" "$2"
 }
 
 _srun_subword_100 () {
-    local -a literals=("9" "8" "7" "6" "5" "4" "2" "1" "0" "3")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local max_fallback_level=2
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_101 () {
-    local -a literals=("9" "8" "7" "6" "5" "3" "2" "1" "0" "4")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local max_fallback_level=2
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_102 () {
-    local -a literals=("9" "8" "7" "6" "4" "3" "2" "1" "0" "5")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local max_fallback_level=2
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_103 () {
-    local -a literals=("9" "8" "7" "5" "4" "3" "2" "1" "0" "6")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local max_fallback_level=2
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_104 () {
-    local -a literals=("9" "8" "6" "5" "4" "3" "2" "1" "0" "7")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local max_fallback_level=2
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_105 () {
-    local -a literals=("9" "7" "6" "5" "4" "3" "2" "1" "0" "8")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local max_fallback_level=2
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_106 () {
-    local -a literals=("8" "7" "6" "5" "4" "3" "2" "1" "0" "9")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local max_fallback_level=2
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_107 () {
-    local -a literals=(",")
-    local -A literal_transitions=()
-    literal_transitions[0]="([0]=1)"
-    local -A command_transitions=()
-    command_transitions[1]="([15]=2)"
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=([0]="0")
-    local -A commands_level_0=([1]="15")
-    local -A commands_level_1=()
-    local max_fallback_level=1
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_108 () {
-    local -a literals=(",")
-    local -A literal_transitions=()
-    literal_transitions[0]="([0]=1)"
-    local -A command_transitions=()
-    command_transitions[1]="([15]=2)"
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=([0]="0")
-    local -A commands_level_0=([1]="15")
-    local -A commands_level_1=()
-    local max_fallback_level=1
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_109 () {
-    local -a literals=("9" "8" "7" "6" "5" "4" "3" "2" "0" "1")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local -A commands_level_3=()
-    local max_fallback_level=3
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_110 () {
-    local -a literals=("9" "8" "7" "6" "5" "4" "3" "1" "0" "2")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local -A commands_level_3=()
-    local max_fallback_level=3
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_111 () {
-    local -a literals=("9" "8" "7" "6" "5" "4" "2" "1" "0" "3")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local -A commands_level_3=()
-    local max_fallback_level=3
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_112 () {
-    local -a literals=("9" "8" "7" "6" "5" "3" "2" "1" "0" "4")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local -A commands_level_3=()
-    local max_fallback_level=3
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_113 () {
-    local -a literals=("9" "8" "7" "6" "4" "3" "2" "1" "0" "5")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local -A commands_level_3=()
-    local max_fallback_level=3
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_114 () {
-    local -a literals=("9" "8" "7" "5" "4" "3" "2" "1" "0" "6")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local -A commands_level_3=()
-    local max_fallback_level=3
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_115 () {
-    local -a literals=("9" "8" "6" "5" "4" "3" "2" "1" "0" "7")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local -A commands_level_3=()
-    local max_fallback_level=3
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_116 () {
-    local -a literals=("9" "7" "6" "5" "4" "3" "2" "1" "0" "8")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local -A commands_level_3=()
-    local max_fallback_level=3
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_117 () {
-    local -a literals=("8" "7" "6" "5" "4" "3" "2" "1" "0" "9")
-    local -A literal_transitions=()
-    literal_transitions[1]="([9]=1 [8]=1 [7]=1 [6]=1 [5]=1 [4]=1 [3]=1 [2]=1 [1]=1 [0]=1)"
-    literal_transitions[0]="([9]=1)"
-    local -A command_transitions=()
-    local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=()
-    local -A literal_transitions_level_3=([1]="9 8 7 6 5 4 3 2 1 0" [0]="9")
-    local -A commands_level_0=()
-    local -A commands_level_1=()
-    local -A commands_level_2=()
-    local -A commands_level_3=()
-    local max_fallback_level=3
-    local state=0
-    _srun_subword "$1" "$2"
-}
-
-_srun_subword_118 () {
     local -a literals=("afternotok" "aftercorr" "afterany" "afterok" "after" ":")
     local -A literal_transitions=()
     literal_transitions[1]="([5]=2)"
@@ -2216,7 +1858,7 @@ _srun_subword_118 () {
     _srun_subword "$1" "$2"
 }
 
-_srun_subword_119 () {
+_srun_subword_101 () {
     local -a literals=("minutes" "seconds" "weeks" "hours" "days" "now" "+1")
     local -A literal_transitions=()
     literal_transitions[1]="([6]=2)"
@@ -2234,7 +1876,7 @@ _srun_subword_119 () {
     _srun_subword "$1" "$2"
 }
 
-_srun_subword_120 () {
+_srun_subword_102 () {
     local -a literals=("HH:MM" ":SS")
     local -A literal_transitions=()
     literal_transitions[1]="([1]=2)"
@@ -2251,7 +1893,7 @@ _srun_subword_120 () {
     _srun_subword "$1" "$2"
 }
 
-_srun_subword_121 () {
+_srun_subword_103 () {
     local -a literals=("YYYY-MM-DD" "THH:MM" ":SS")
     local -A literal_transitions=()
     literal_transitions[1]="([1]=2)"
@@ -2394,48 +2036,45 @@ _srun () {
     local words cword
     _get_comp_words_by_ref -n "$COMP_WORDBREAKS" words cword
 
-    local -a literals=("--quit-on-interrupt" "--kill-on-bad-exit" "--disable-status" "--use-min-nodes" "--oversubscribe" "--preserve-env" "--no-allocate" "--resv-ports" "--contiguous" "--unbuffered" "--spread-job" "--overcommit" "--multi-prog" "YYYY-MM-DD" "--version" "--verbose" "--overlap" "arbitrary" "--no-kill" "--reboot" "MM/DD/YY" "--usage" "--exact" "--quiet" "--label" "--help" "cyclic" "--hold" "MMDDYY" "plane" "block" "-V" "-h" "-G" "-B" "-Z" "-x" "-w" "-C" "-X" "-W" "-v" "-u" "-t" "-T" "-S" "-s" "-r" "-Q" "-q" "-p" "-O" "-o" "-N" "-n" "-m" "-M" "-L" "-l" "-K" "-k" "-J" "-I" "-i" "-H" "-E" "-e" "-D" "-d" "-c" "-b" "-A" "0")
+    local -a literals=("--quit-on-interrupt" "--kill-on-bad-exit" "--disable-status" "--use-min-nodes" "--oversubscribe" "--preserve-env" "--no-allocate" "--resv-ports" "--contiguous" "--unbuffered" "--spread-job" "--overcommit" "--multi-prog" "YYYY-MM-DD" "--version" "--verbose" "--overlap" "arbitrary" "--no-kill" "--reboot" "MM/DD/YY" "--usage" "--exact" "--quiet" "--label" "--help" "cyclic" "--hold" "MMDDYY" "plane" "block" "-V" "-h" "-G" "-B" "-Z" "-x" "-w" "-C" "-X" "-W" "-v" "-u" "-t" "-T" "-S" "-s" "-r" "-Q" "-q" "-p" "-O" "-o" "-N" "-n" "-m" "-M" "-L" "-l" "-K" "-k" "-J" "-I" "-i" "-H" "-E" "-e" "-D" "-d" "-c" "-b" "-A" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
     local -A literal_transitions=()
     literal_transitions[2]="([28]=0 [20]=0 [13]=0)"
-    literal_transitions[0]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=17 [33]=17 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
-    literal_transitions[7]="([71]=1 [70]=2 [69]=3 [72]=0 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=17 [33]=17 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
+    literal_transitions[0]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=3 [33]=3 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
+    literal_transitions[7]="([71]=1 [70]=2 [69]=3 [81]=0 [80]=0 [79]=0 [78]=0 [77]=0 [76]=0 [75]=0 [74]=0 [73]=0 [72]=0 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=3 [33]=3 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
     literal_transitions[11]="([30]=0 [26]=0 [17]=0 [29]=0)"
-    literal_transitions[15]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=17 [33]=17 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
-    literal_transitions[16]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=17 [33]=17 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
-    literal_transitions[4]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=17 [33]=17 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
-    literal_transitions[3]="([72]=0)"
-    literal_transitions[17]="([72]=0)"
-    literal_transitions[19]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=17 [33]=17 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
-    literal_transitions[20]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=17 [33]=17 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
+    literal_transitions[15]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=3 [33]=3 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
+    literal_transitions[16]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=3 [33]=3 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
+    literal_transitions[4]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=3 [33]=3 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
+    literal_transitions[3]="([81]=0 [80]=0 [79]=0 [78]=0 [77]=0 [76]=0 [75]=0 [74]=0 [73]=0 [72]=0)"
+    literal_transitions[18]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=3 [33]=3 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
+    literal_transitions[19]="([71]=1 [70]=2 [69]=3 [68]=4 [67]=5 [66]=6 [65]=0 [5]=0 [64]=0 [27]=0 [63]=6 [62]=7 [61]=8 [60]=0 [18]=0 [59]=0 [1]=0 [58]=0 [24]=0 [57]=9 [56]=10 [55]=11 [12]=0 [54]=3 [53]=3 [52]=6 [51]=0 [11]=0 [16]=0 [50]=12 [0]=0 [49]=13 [48]=0 [23]=0 [19]=0 [47]=3 [46]=0 [4]=0 [45]=3 [10]=0 [44]=3 [43]=2 [42]=0 [9]=0 [3]=0 [41]=0 [15]=0 [40]=3 [39]=0 [2]=0 [8]=0 [38]=14 [37]=15 [36]=16 [35]=0 [6]=0 [22]=0 [7]=0 [34]=3 [33]=3 [32]=0 [25]=0 [21]=0 [31]=0 [14]=0)"
     local -A command_transitions=()
     command_transitions[1]="([0]=0)"
-    command_transitions[0]="([4]=18)"
-    command_transitions[19]="([4]=18)"
+    command_transitions[0]="([4]=17)"
+    command_transitions[19]="([4]=17)"
     command_transitions[6]="([1]=0)"
     command_transitions[10]="([8]=0)"
     command_transitions[5]="([3]=0)"
     command_transitions[9]="([7]=0)"
-    command_transitions[15]="([1]=0 [15]=0 [4]=18)"
-    command_transitions[20]="([4]=18)"
+    command_transitions[15]="([1]=0 [15]=0 [4]=17)"
+    command_transitions[17]="([1]=17)"
     command_transitions[8]="([6]=0)"
     command_transitions[13]="([11]=0)"
     command_transitions[12]="([10]=0)"
-    command_transitions[7]="([4]=18)"
+    command_transitions[7]="([4]=17)"
     command_transitions[14]="([13]=0)"
-    command_transitions[18]="([1]=18)"
-    command_transitions[16]="([1]=0 [15]=0 [4]=18)"
-    command_transitions[4]="([4]=18)"
+    command_transitions[18]="([4]=17)"
+    command_transitions[16]="([1]=0 [15]=0 [4]=17)"
+    command_transitions[4]="([4]=17)"
     local -A subword_transitions
     subword_transitions[0]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [77]=0 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
-    subword_transitions[2]="([119]=0 [120]=0 [121]=0)"
-    subword_transitions[3]="([98]=0 [99]=0 [100]=0 [101]=0 [102]=0 [103]=0 [104]=0 [105]=0 [106]=0)"
-    subword_transitions[4]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [118]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [77]=0 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
-    subword_transitions[7]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [98]=0 [99]=0 [100]=0 [101]=0 [102]=0 [103]=0 [104]=0 [105]=0 [106]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [77]=0 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
-    subword_transitions[15]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [107]=19 [77]=0 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
-    subword_transitions[16]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [77]=0 [108]=20 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
-    subword_transitions[17]="([109]=0 [110]=0 [111]=0 [112]=0 [113]=0 [114]=0 [115]=0 [116]=0 [117]=0)"
-    subword_transitions[19]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [107]=19 [77]=0 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
-    subword_transitions[20]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [77]=0 [108]=20 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
+    subword_transitions[2]="([101]=0 [102]=0 [103]=0)"
+    subword_transitions[4]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [100]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [77]=0 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
+    subword_transitions[7]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [77]=0 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
+    subword_transitions[15]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [98]=18 [77]=0 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
+    subword_transitions[16]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [77]=0 [99]=19 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
+    subword_transitions[18]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [98]=18 [77]=0 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
+    subword_transitions[19]="([0]=0 [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0 [11]=0 [12]=0 [13]=0 [14]=0 [15]=0 [16]=0 [17]=0 [18]=0 [19]=0 [20]=0 [21]=0 [22]=0 [23]=0 [24]=0 [25]=0 [26]=0 [27]=0 [28]=0 [29]=0 [30]=0 [31]=0 [32]=0 [33]=0 [34]=0 [35]=0 [36]=0 [37]=0 [38]=0 [39]=0 [40]=0 [41]=0 [42]=0 [43]=0 [44]=0 [45]=0 [46]=0 [47]=0 [48]=0 [49]=0 [50]=0 [51]=0 [52]=0 [53]=0 [54]=0 [55]=0 [56]=0 [57]=0 [58]=0 [59]=0 [60]=0 [61]=0 [62]=0 [63]=0 [64]=0 [65]=0 [66]=0 [67]=0 [68]=0 [69]=0 [70]=0 [71]=0 [72]=0 [73]=0 [74]=0 [75]=0 [76]=0 [77]=0 [99]=19 [78]=0 [79]=0 [80]=0 [81]=0 [82]=0 [83]=0 [84]=0 [85]=0 [86]=0 [87]=0 [88]=0 [89]=0 [90]=0 [91]=0 [92]=0 [93]=0 [94]=0 [95]=0 [96]=0 [97]=0)"
 
     local state=0
     local word_index=1
@@ -2502,18 +2141,18 @@ _srun () {
         return 1
     done
 
-    local -A literal_transitions_level_0=([15]="71 68 57 38" [16]="71 68 57 38" [20]="71 68 57 38" [4]="71 68 57 38" [0]="71 68 57 38" [7]="71 68 57 38" [19]="71 68 57 38")
-    local -A literal_transitions_level_1=()
-    local -A literal_transitions_level_2=([2]="28 20 13" [0]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [7]="70 69 72 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [20]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [15]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [16]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [19]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [3]="72" [4]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [11]="30 26 17 29")
-    local -A literal_transitions_level_3=([0]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [7]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [20]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [15]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [16]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [17]="72" [19]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [4]="8 37 36 35 6 22 7 34 33 32 25 21 31 14")
-    local -A commands_level_0=([1]="0" [19]="4" [0]="4" [6]="1" [15]="1 15 4" [5]="3" [20]="4" [9]="7" [10]="8" [8]="6" [18]="1" [14]="13" [7]="4" [12]="10" [13]="11" [16]="1 15 4" [4]="4")
+    local -A literal_transitions_level_0=([18]="71 68 57 38" [0]="71 68 57 38" [7]="71 81 68 57 38" [19]="71 68 57 38" [15]="71 68 57 38" [16]="71 68 57 38" [4]="71 68 57 38" [3]="81")
+    local -A literal_transitions_level_1=([7]="80 79 78 77 76 75 74 73 72" [3]="80 79 78 77 76 75 74 73 72")
+    local -A literal_transitions_level_2=([18]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [0]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [7]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [19]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [15]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [16]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [4]="70 69 67 66 65 5 64 27 63 62 61 60 18 59 1 58 24 56 55 12 54 53 52 51 11 16 50 0 49 48 23 19 47 46 4 45 10 44 43 42 9 3 41 15 40 39 2" [2]="28 20 13" [11]="30 26 17 29")
+    local -A literal_transitions_level_3=([15]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [16]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [4]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [18]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [0]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [7]="8 37 36 35 6 22 7 34 33 32 25 21 31 14" [19]="8 37 36 35 6 22 7 34 33 32 25 21 31 14")
+    local -A commands_level_0=([1]="0" [0]="4" [19]="4" [6]="1" [17]="1" [5]="3" [15]="1 15 4" [9]="7" [10]="8" [8]="6" [18]="4" [14]="13" [7]="4" [12]="10" [13]="11" [16]="1 15 4" [4]="4")
     local -A commands_level_1=()
     local -A commands_level_2=()
     local -A commands_level_3=()
-    local -A subword_transitions_level_0=([15]="0 1" [16]="0 1" [20]="0 1" [4]="0 1 118" [0]="0 1" [7]="0 1" [19]="0 1")
-    local -A subword_transitions_level_1=([15]="2 3 4 5 6 15 16 30 31 70 71 107" [16]="2 3 4 5 6 15 16 30 31 70 71 108" [20]="2 3 4 5 6 15 16 30 31 70 71 108" [4]="2 3 4 5 6 15 16 30 31 70 71" [0]="2 3 4 5 6 15 16 30 31 70 71" [7]="2 3 4 5 6 15 16 30 31 70 71" [19]="2 3 4 5 6 15 16 30 31 70 71 107")
-    local -A subword_transitions_level_2=([2]="119 120 121" [0]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [7]="7 8 98 99 100 101 102 103 104 105 106 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [20]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [15]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [16]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [19]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [3]="98 99 100 101 102 103 104 105 106" [4]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72")
-    local -A subword_transitions_level_3=([0]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [7]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [20]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [15]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [16]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [17]="109 110 111 112 113 114 115 116 117" [19]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [4]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97")
+    local -A subword_transitions_level_0=([15]="0 1" [16]="0 1" [4]="0 1 100" [18]="0 1" [0]="0 1" [7]="0 1" [19]="0 1")
+    local -A subword_transitions_level_1=([15]="2 3 4 5 6 15 16 30 31 70 71 98" [16]="2 3 4 5 6 15 16 30 31 70 71 99" [4]="2 3 4 5 6 15 16 30 31 70 71" [18]="2 3 4 5 6 15 16 30 31 70 71 98" [0]="2 3 4 5 6 15 16 30 31 70 71" [7]="2 3 4 5 6 15 16 30 31 70 71" [19]="2 3 4 5 6 15 16 30 31 70 71 99")
+    local -A subword_transitions_level_2=([18]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [0]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [7]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [19]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [15]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [16]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [4]="7 8 9 10 11 12 13 14 17 18 19 20 21 22 23 24 25 26 27 28 29 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 72" [2]="101 102 103")
+    local -A subword_transitions_level_3=([15]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [16]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [4]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [18]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [0]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [7]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97" [19]="69 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97")
 
     local ignore_case=$(bind -v | while read -r _ var value; do [[ $var = completion-ignore-case ]] && echo $value; done)
     if [[ $ignore_case = on ]]; then

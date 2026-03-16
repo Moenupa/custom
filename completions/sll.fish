@@ -14,7 +14,6 @@ function _sll_subword_1
     set word $argv[2]
 
     set --global subword_literals "color," "no-" "--"
-
     set --global subword_descrs
     set --global subword_descrs[1] "Color output (default: true)"
     set --global subword_descr_literal_ids 3
@@ -26,9 +25,6 @@ function _sll_subword_1
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_literal_transitions_inputs[3] "1"
     set --global subword_literal_transitions_tos[3] "4"
-
-    set --global subword_star_transitions_from 
-    set --global subword_star_transitions_to 
 
     set --global subword_literal_froms_level_0 
     set --global subword_literal_inputs_level_0 
@@ -46,7 +42,6 @@ function _sll_subword_2
     set word $argv[2]
 
     set --global subword_literals "stderr," "no-" "--"
-
     set --global subword_descrs
     set --global subword_descrs[1] "Show stdERR (default: true)"
     set --global subword_descr_literal_ids 3
@@ -58,9 +53,6 @@ function _sll_subword_2
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_literal_transitions_inputs[3] "1"
     set --global subword_literal_transitions_tos[3] "4"
-
-    set --global subword_star_transitions_from 
-    set --global subword_star_transitions_to 
 
     set --global subword_literal_froms_level_0 
     set --global subword_literal_inputs_level_0 
@@ -78,7 +70,6 @@ function _sll_subword_3
     set word $argv[2]
 
     set --global subword_literals "stdout," "no-" "--"
-
     set --global subword_descrs
     set --global subword_descrs[1] "Show stdOUT (default: false)"
     set --global subword_descr_literal_ids 3
@@ -90,9 +81,6 @@ function _sll_subword_3
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_literal_transitions_inputs[3] "1"
     set --global subword_literal_transitions_tos[3] "4"
-
-    set --global subword_star_transitions_from 
-    set --global subword_star_transitions_to 
 
     set --global subword_literal_froms_level_0 
     set --global subword_literal_inputs_level_0 
@@ -212,12 +200,6 @@ function _sll_subword
                 continue
             end
         end
-        set index (contains --index -- "$subword_state" $subword_star_transitions_from)
-        if test -n "$index"
-            set matched 1
-            break
-        end
-
         break
     end
 
@@ -276,7 +258,6 @@ function _sll
     end
 
     set literals "--help" "-o" "-e" "-c" "-h"
-
     set descrs
     set descrs[1] "Show help message and exit"
     set descrs[2] "Show stdOUT (default: false)"
@@ -292,9 +273,6 @@ function _sll
     set command_transitions
     set command_transitions[2] "0,2 1,2"
     set command_transitions[1] "0,2 1,2"
-
-    set star_transitions_from 
-    set star_transitions_to 
     set subword_transitions_ids[1] "1 2 3"
     set subword_transitions_tos[1] "2 2 2"
     set subword_transitions_ids[2] "1 2 3"
@@ -381,13 +359,6 @@ function _sll
             if test $command_matched -ne 0
                 continue
             end
-        end
-
-        set index (contains --index -- "$state" $star_transitions_from)
-        if test -n "$index"
-            set state $star_transitions_to[$index]
-            set word_index (math $word_index + 1)
-            continue
         end
 
         return 1

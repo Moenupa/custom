@@ -142,8 +142,7 @@ srun [<SRUN_OPTION>]... <EXE> [<PATH>]...;
 <USER> ::= {{{ sacctmgr show user -nP format=user }}};
 <WCKEY> ::= {{{ squeue -u $USER -ho '%w' }}};
 
-<INT> ::= 0|1|2|3|4|5|6|7|8|9;
-<NUM> ::= 0|1[<INT>]...|2[<INT>]...|3[<INT>]...|4[<INT>]...|5[<INT>]...|6[<INT>]...|7[<INT>]...|8[<INT>]...|9[<INT>]...;
+<NUM> ::= 0||1|2|3|4|5|6|7|8|9;
 <INTERVAL> ::= 60[s|m|h];
 <SPACEUNIT> ::= K | M | G | T;
 <EXPORT> ::= ALL[,ENVVAR] | NONE;

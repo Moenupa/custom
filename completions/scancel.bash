@@ -6,7 +6,7 @@ if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
 fi
 
 _scancel_cmd_0 () {
-    squeue -u $USER -ho '%A'
+    squeue -u $USER -ho '%A|%j|%T' | tr -s '|' '\t'
 }
 
 _scancel_cmd_1 () {
@@ -14,7 +14,7 @@ _scancel_cmd_1 () {
 }
 
 _scancel_cmd_2 () {
-    squeue -u $USER -ho '%j'
+    squeue -u $USER -ho '%j|%T' | tr -s '|' '\t'
 }
 
 _scancel_cmd_3 () {
