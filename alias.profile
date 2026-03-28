@@ -7,9 +7,12 @@ alias sshconfig='vim ~/.ssh/config'
 alias gm='git commit -m'
 alias duhid='du -sh .[^.]*'
 alias tf='tail -f'
+alias t='xargs tail -f'
 
 alias prj='cd $prj'
 alias lst='cd $lst'
+
+alias tp='template'
 
 # assume adaptive_alias defined, syntax: adaptive_alias better_cmd fallback_cmd
 # if better_cmd exists, alias fallback_cmd to better_cmd
@@ -41,6 +44,6 @@ alias usq="squeue -u $USER"
 alias slist="sacct -u $USER -X -S now-3days"
 alias shist='slist | head -n 2; slist -n | sort -k 5 -r' # sorted by start time
 alias slast='slist | head -n 2; slist -n | sort -k 6 -r' # sorted by end time
-alias sl="python $CUSTOM/findlog.py"
-alias sll="sl --local"
+alias sl='slog'
+alias sll="slog --local"
 alias sb="sbatch"

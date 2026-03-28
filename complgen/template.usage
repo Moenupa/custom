@@ -1,0 +1,11 @@
+template (<TPPATH> || [<OPTION>])...;
+
+<OPTION> ::=
+    (-w | --write) "Write template to './<specname>'"
+    (-f | --force) "Froce write to './<specname>'"
+    | (-h | --help) "Print help message"
+    ;
+
+<TPPATH@fish> ::= {{{ string match -r '.*/.*' $1 && __fish_complete_path "$TEMPLATE_DIR/$1" "Template" | string replace -r "^$TEMPLATE_DIR/" '' | string match -r '^[^/]+/[^/]+\s+.*' || __fish_complete_directories "$TEMPLATE_DIR/$1" | string replace -r "^$TEMPLATE_DIR/" '' }}};
+<TPPATH@zsh> ::= {{{ [[ $words[$CURRENT] == */* ]] && _files -W $TEMPLATE_DIR -g "*" -f || _files -W $TEMPLATE_DIR -g '*/' -/; }}};
+<TPPATH@bash> ::= {{{ find "$TEMPLATE_DIR" -maxdepth 2 -type f -print | sed "s|^$TEMPLATE_DIR/||" }}};

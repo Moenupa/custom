@@ -10,3 +10,5 @@ export lst=${lst:-$HOME}
 
 export CUSTOM="$HOME/.custom"
 export ZSH_CUSTOM="$CUSTOM"
+
+export TEMPLATE_DIR="$HOME/.template"

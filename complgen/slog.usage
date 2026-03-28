@@ -1,0 +1,19 @@
+slog (<SLURM_MODE> || <LOCAL_MODE>);
+
+<SLURM_MODE> ::= (<QUEUED_JOBIDS> || (<SL_OPTION>) )...;
+<LOCAL_MODE> ::= <SL_LOCAL> (<QUEUED_JOBIDS> | <HISTORY_JOBIDS> || (<SL_OPTION>) )...;
+
+<SL_LOCAL> ::=
+    (-l | --local) "Use local or slurm search mode (default: slurm)"
+    ;
+
+<SL_OPTION> ::=
+    (-h | --help) "Show help message and exit"
+    | (-c | --[no-]color) "Color output (default: true)"
+    | (-e | --stderr) "Show stderr (default: true)"
+    | (-o | --stdout) "Show stdout (default: false)"
+    | (-a | --all) "Show both stdout and stderr (default: false)"
+    ;
+
+<QUEUED_JOBIDS> ::= {{{ squeue -u $USER -ho '%A|%j|%T' | tr -s '|' '\t' }}};
+<HISTORY_JOBIDS> ::= {{{ sacct -u $USER -nXP -S now-3days -o JobID,JobName,State | tr -s '|' '\t' }}};

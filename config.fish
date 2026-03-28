@@ -11,6 +11,8 @@ if status is-interactive
 	source $CUSTOM/alias.profile
 	# override some aliases for fish
 	alias va='source .venv/bin/activate.fish'
+	alias slog='sh $CUSTOM/slog.sh'
+	alias template='sh $TEMPLATE_DIR/tp.sh'
 
 	if command -v zoxide &> /dev/null
 		zoxide init fish | source

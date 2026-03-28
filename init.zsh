@@ -30,6 +30,10 @@ bindkey '^[[B' history-substring-search-down
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
-if [ -f "$HOME/.template/init.zsh" ]; then
-    source "$HOME/.template/init.zsh"
+if [ -f "$TEMPLATE_DIR/tp.sh" ]; then
+    source "$TEMPLATE_DIR/tp.sh"
+fi
+
+if [ -f "$CUSTOM/slog.sh" ]; then
+    source "$CUSTOM/slog.sh"
 fi
