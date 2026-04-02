@@ -3,6 +3,7 @@ template (<TPPATH> || [<OPTION>])...;
 <OPTION> ::=
     (-w | --write) "Write template to './<specname>'"
     (-f | --force) "Froce write to './<specname>'"
+    (-v | --verbose) "Confirm on write to './<specname>'"
     | (-h | --help) "Print help message"
     ;
 

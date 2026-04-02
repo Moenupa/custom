@@ -73,18 +73,21 @@ function _template
         set COMP_CWORD (count $COMP_WORDS)
     end
 
-    set literals "--force" "--write" "--help" "-h" "-f" "-w"
+    set literals "--verbose" "--force" "--write" "--help" "-h" "-v" "-f" "-w"
     set descrs
-    set descrs[1] "Froce write to './<specname>'"
-    set descrs[2] "Write template to './<specname>'"
-    set descrs[3] "Print help message"
-    set descr_literal_ids 1 2 3 4 5 6
-    set descr_ids 1 2 3 3 1 2
+    set descrs[1] "Confirm on write to './<specname>'"
+    set descrs[2] "Froce write to './<specname>'"
+    set descrs[3] "Write template to './<specname>'"
+    set descrs[4] "Print help message"
+    set descr_literal_ids 1 2 3 4 5 6 7 8
+    set descr_ids 1 2 3 4 4 1 2 3
     set literal_transitions_inputs
-    set literal_transitions_inputs[2] "5 1"
-    set literal_transitions_tos[2] "1 1"
-    set literal_transitions_inputs[1] "6 2 4 3"
+    set literal_transitions_inputs[2] "7 2"
+    set literal_transitions_tos[2] "3 3"
+    set literal_transitions_inputs[1] "8 3 5 4"
     set literal_transitions_tos[1] "2 2 1 1"
+    set literal_transitions_inputs[3] "6 1"
+    set literal_transitions_tos[3] "1 1"
     set command_transitions
     set command_transitions[1] "0,1"
 
@@ -158,8 +161,8 @@ function _template
 
     set literal_froms_level_0 
     set literal_inputs_level_0 
-    set literal_froms_level_1 2 1
-    set literal_inputs_level_1 "5 1" "6 2 4 3"
+    set literal_froms_level_1 2 1 3
+    set literal_inputs_level_1 "7 2" "8 3 5 4" "6 1"
     set command_froms_level_0 1
     set commands_level_0 "0"
     set command_froms_level_1 

@@ -18,10 +18,11 @@ _template () {
     local words cword
     _get_comp_words_by_ref -n "$COMP_WORDBREAKS" words cword
 
-    local -a literals=("--force" "--write" "--help" "-h" "-f" "-w")
+    local -a literals=("--verbose" "--force" "--write" "--help" "-h" "-v" "-f" "-w")
     local -A literal_transitions=()
-    literal_transitions[1]="([4]=0 [0]=0)"
-    literal_transitions[0]="([5]=1 [1]=1 [3]=0 [2]=0)"
+    literal_transitions[1]="([6]=2 [1]=2)"
+    literal_transitions[0]="([7]=1 [2]=1 [4]=0 [3]=0)"
+    literal_transitions[2]="([5]=0 [0]=0)"
     local -A command_transitions=()
     command_transitions[0]="([0]=0)"
 
@@ -79,7 +80,7 @@ _template () {
     done
 
     local -A literal_transitions_level_0=()
-    local -A literal_transitions_level_1=([1]="4 0" [0]="5 1 3 2")
+    local -A literal_transitions_level_1=([1]="6 1" [0]="7 2 4 3" [2]="5 0")
     local -A commands_level_0=([0]="0")
     local -A commands_level_1=()
 

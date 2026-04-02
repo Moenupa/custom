@@ -34,8 +34,8 @@ alias ffi='ruff check --select I --fix'
 alias hfdata='hf download --repo-type dataset'
 
 # slurm ------------------------------------------------------------------------
-export SQUEUE_FORMAT="%.10i %.5P %.30j %.10u %.2t %.12M %.2D %R"
-export SACCT_FORMAT="JobID%-10,JobName%-30,State,ExitCode,Start,End,Elapsed,NodeList,WorkDir%30"
+export SQUEUE_FORMAT="%.10i %.4P %.50j %.10u %.2t %.12M %.2D %R"
+export SACCT_FORMAT="JobID%-10,JobName%-50,State,ExitCode,Start,End,Elapsed,NodeList,WorkDir%30"
 
 alias scc='scancel'
 alias sq='squeue'

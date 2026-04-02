@@ -27,42 +27,34 @@ _srun_cmd_5 () {
 }
 
 _srun_cmd_6 () {
-    squeue -u $USER -ho '%j'
-}
-
-_srun_cmd_7 () {
     scontrol show lic
 }
 
-_srun_cmd_8 () {
+_srun_cmd_7 () {
     sacctmgr show cluster -nP format=clusters
 }
 
-_srun_cmd_9 () {
+_srun_cmd_8 () {
     sacctmgr show user -nP format=user
 }
 
-_srun_cmd_10 () {
+_srun_cmd_9 () {
     sinfo -ho %P
 }
 
-_srun_cmd_11 () {
+_srun_cmd_10 () {
     sacctmgr show qos -nP format=name
 }
 
-_srun_cmd_12 () {
-    squeue -u $USER -ho '%w'
-}
-
-_srun_cmd_13 () {
+_srun_cmd_11 () {
     sinfo -ho %f
 }
 
-_srun_cmd_14 () {
+_srun_cmd_12 () {
     sacctmgr show reservation -nP format=name
 }
 
-_srun_cmd_15 () {
+_srun_cmd_13 () {
     sinfo -ho %n
 }
 
@@ -85,17 +77,20 @@ _srun_subword_1 () {
 }
 
 _srun_subword_2 () {
-    declare -a subword_literals=("--acctg-freq=" "filesystem" "network" "energy" "task" "30" "0" "=")
+    declare -a subword_literals=("YYYY-MM-DD" "MM/DD/YY" "--begin=" "minutes" "seconds" "THH:MM" "MMDDYY" "HH:MM" "weeks" "hours" "days" ":SS" "now" "+1")
     declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
+    subword_descriptions[0]="defer job until HH:MM MM/DD/YY"
+    declare -A subword_descr_id_from_literal_id=([3]=0)
     declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[4]="([7]=5 [6]=5)"
-    subword_literal_transitions[3]="([8]=4)"
-    subword_literal_transitions[1]="([1]=2)"
+    subword_literal_transitions[2]="([13]=3 [8]=4 [7]=5 [2]=5 [1]=6)"
+    subword_literal_transitions[6]="([6]=4)"
+    subword_literal_transitions[4]="([12]=5)"
+    subword_literal_transitions[3]="([14]=7)"
+    subword_literal_transitions[1]="([3]=2)"
+    subword_literal_transitions[7]="([5]=5 [4]=5 [10]=5 [11]=5 [9]=5)"
     declare -A subword_command_transitions=()
     declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="5 4 3 2" [4]="7 6" [3]="8" [1]="1")
+    declare -A subword_literal_transitions_level_0=([2]="13 8 7 2 1" [6]="6" [4]="12" [3]="14" [1]="3" [7]="5 4 10 11 9")
     declare -A subword_commands_level_0=()
     declare -A subword_compadd_commands_level_0=()
     declare subword_max_fallback_level=0
@@ -104,19 +99,536 @@ _srun_subword_2 () {
 }
 
 _srun_subword_3 () {
-    declare -a subword_literals=("filesystem" "network" "energy" "task" "30" "0" "=" ",")
+    declare -a subword_literals=("--cpus-per-task=" "8")
     declare -A subword_descriptions=()
-    subword_descriptions[0]="accounting and profiling sampling"
-    declare -A subword_descr_id_from_literal_id=([8]=0)
+    subword_descriptions[0]="number of cpus required per task"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
     declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([4]=3 [3]=3 [2]=3 [1]=3)"
-    subword_literal_transitions[4]="([6]=5 [5]=5)"
-    subword_literal_transitions[3]="([7]=4)"
-    subword_literal_transitions[1]="([8]=2)"
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
     declare -A subword_command_transitions=()
     declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([2]="4 3 2 1" [4]="6 5" [3]="7" [1]="8")
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_4 () {
+    declare -a subword_literals=("--container=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="Path to OCI container bundle"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    subword_compadd_transitions[2]="([1]=3)"
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=([2]="1")
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_5 () {
+    declare -a subword_literals=("--dependency=" "afternotok" "aftercorr" "afterany" "afterok" "after" "," ":")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="defer job until condition on jobid is satisfied"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([6]=3 [4]=3 [5]=3 [3]=3 [2]=3 [7]=2)"
+    subword_literal_transitions[5]="([8]=4 [7]=2)"
+    subword_literal_transitions[3]="([8]=4)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[4]="([2]=5)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="6 4 5 3 2 7" [5]="8 7" [3]="8" [1]="1")
+    declare -A subword_commands_level_0=([4]="2")
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_6 () {
+    declare -a subword_literals=("--deadline=" "YYYY-MM-DD" "MM/DD/YY" "minutes" "seconds" "THH:MM" "MMDDYY" "HH:MM" "weeks" "hours" "days" ":SS" "now" "+1")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="remove the job if no ending possible before this deadline (start > (deadline - time[-min]))"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([13]=3 [8]=4 [7]=5 [3]=5 [2]=6)"
+    subword_literal_transitions[6]="([6]=4)"
+    subword_literal_transitions[4]="([12]=5)"
+    subword_literal_transitions[3]="([14]=7)"
+    subword_literal_transitions[1]="([1]=2)"
+    subword_literal_transitions[7]="([5]=5 [4]=5 [10]=5 [11]=5 [9]=5)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="13 8 7 3 2" [6]="6" [4]="12" [3]="14" [1]="1" [7]="5 4 10 11 9")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_7 () {
+    declare -a subword_literals=("--chdir=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="change remote current working directory"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    subword_compadd_transitions[2]="([3]=3)"
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=([2]="3")
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_8 () {
+    declare -a subword_literals=("--error=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="location of stderr redirection"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    subword_compadd_transitions[2]="([1]=3)"
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=([2]="1")
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_9 () {
+    declare -a subword_literals=("--export=" ",ENVVAR" "NONE" "ALL")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="environment variables passed to launcher with optional values or NONE (pass no variables)"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([4]=3 [3]=4)"
+    subword_literal_transitions[1]="([1]=2)"
+    subword_literal_transitions[3]="([2]=4)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="4 3" [1]="1" [3]="2")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_10 () {
+    declare -a subword_literals=("--epilog=" "none")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="run 'program' after launching job step"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    subword_compadd_transitions[2]="([4]=3)"
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=([2]="4")
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_11 () {
+    declare -a subword_literals=("--gres=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="required generic resources"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[2]="([5]=3)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=([2]="5")
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_12 () {
+    declare -a subword_literals=("--input=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="location of stdin redirection"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    subword_compadd_transitions[2]="([1]=3)"
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=([2]="1")
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_13 () {
+    declare -a subword_literals=("--immediate" "=1")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="exit if resources not available in secs"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_14 () {
+    declare -a subword_literals=("--jobid=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="run under already allocated job"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[2]="([2]=3)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=([2]="2")
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_15 () {
+    declare -a subword_literals=("--job-name=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="name of job"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    subword_compadd_transitions[2]="([1]=3)"
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=([2]="1")
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_16 () {
+    declare -a subword_literals=("--licenses=" ":0" ",")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="required license, comma separated"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[3]="([3]=4)"
+    subword_literal_transitions[1]="([1]=2)"
+    subword_literal_transitions[5]="([3]=4 [2]=3)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[2]="([6]=3)"
+    subword_command_transitions[4]="([6]=5)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([3]="3" [1]="1" [5]="3 2")
+    declare -A subword_commands_level_0=([2]="6" [4]="6")
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_17 () {
+    declare -a subword_literals=("--clusters=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="Comma separated list of clusters to issue"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[2]="([7]=3)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=([2]="7")
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_18 () {
+    declare -a subword_literals=("--distribution=" "arbitrary" "cyclic" "plane" "block")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="distribution method for processes to nodes"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([5]=3 [3]=3 [2]=3 [4]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="5 3 2 4" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_19 () {
+    declare -a subword_literals=("TIME_LIMIT_50" "TIME_LIMIT_80" "TIME_LIMIT_90" "--mail-type=" "ARRAY_TASKS" "TIME_LIMIT" "STAGE_OUT" "REQUEUE" "BEGIN" "FAIL" "NONE" "ALL" "END")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="notify on state change: BEGIN, END, FAIL or ALL"
+    declare -A subword_descr_id_from_literal_id=([4]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([11]=3 [9]=3 [13]=3 [10]=3 [12]=3 [8]=3 [7]=3 [6]=3 [3]=3 [2]=3 [1]=3 [5]=3)"
+    subword_literal_transitions[1]="([4]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="11 9 13 10 12 8 7 6 3 2 1 5" [1]="4")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_20 () {
+    declare -a subword_literals=("--mail-user=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="who to send email notification for job state changes"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[2]="([8]=3)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=([2]="8")
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_21 () {
+    declare -a subword_literals=("cray_shasta" "--mpi=" "none" "pmix" "pmi2" "list")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="type of MPI being used"
+    declare -A subword_descr_id_from_literal_id=([2]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([1]=3 [6]=3 [5]=3 [4]=3 [3]=3)"
+    subword_literal_transitions[1]="([2]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="1 6 5 4 3" [1]="2")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_22 () {
+    declare -a subword_literals=("--ntasks=" "1")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="number of tasks to run"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_23 () {
+    declare -a subword_literals=("--nice" "=0")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="decrease scheduling priority by value"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_24 () {
+    declare -a subword_literals=("--ntasks-per-node=" "1")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="number of tasks to invoke on each node"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_25 () {
+    declare -a subword_literals=("--nodes=" "1")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="number of nodes on which to run (N = min[-max])"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_26 () {
+    declare -a subword_literals=("--output=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="location of stdout redirection"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    subword_compadd_transitions[2]="([1]=3)"
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=([2]="1")
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_27 () {
+    declare -a subword_literals=("--partition=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="partition requested"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[2]="([9]=3)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=([2]="9")
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_28 () {
+    declare -a subword_literals=("--power=" "...")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="power management options"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_29 () {
+    declare -a subword_literals=("--priority=" "0")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="set the priority of the job to value"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_30 () {
+    declare -a subword_literals=("--prolog=" "none")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="run 'program' before launching job step"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    subword_compadd_transitions[2]="([4]=3)"
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=([2]="4")
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_31 () {
+    declare -a subword_literals=("filesystem" "--profile=" "network" "energy" "task" "none" "all" ",")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="enable acct_gather_profile for detailed data value is all or none or any combination of energy, lustre, network or task"
+    declare -A subword_descr_id_from_literal_id=([2]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [1]=3 [8]=4)"
+    subword_literal_transitions[5]="([8]=4)"
+    subword_literal_transitions[4]="([5]=5 [4]=5 [3]=5 [1]=5)"
+    subword_literal_transitions[1]="([2]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="7 6 5 4 3 1" [1]="2")
+    declare -A subword_literal_transitions_level_1=([2]="8" [5]="8" [4]="5 4 3 1")
     declare -A subword_commands_level_0=()
     declare -A subword_commands_level_1=()
     declare -A subword_compadd_commands_level_0=()
@@ -126,10 +638,263 @@ _srun_subword_3 () {
     _srun_subword "$@"
 }
 
-_srun_subword_4 () {
-    declare -a subword_literals=("--bb=" "spec")
+_srun_subword_32 () {
+    declare -a subword_literals=("--propagate" "=rlimits")
     declare -A subword_descriptions=()
-    subword_descriptions[0]="burst buffer specifications"
+    subword_descriptions[0]="propagate all [or specific list of] rlimits"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_33 () {
+    declare -a subword_literals=("--pty" "=fd")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="run task zero in pseudo terminal [or in requested terminal given by fd]"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_34 () {
+    declare -a subword_literals=("--qos=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="quality of service"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[2]="([10]=3)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=([2]="10")
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_35 () {
+    declare -a subword_literals=("--send-libs=" "yes" "no")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="autodetect and broadcast shared objects"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3 [3]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2 3" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_36 () {
+    declare -a subword_literals=("SIGWAITING" "SIGVTALRM" "--signal=" "SIGWINCH" "SIGXFSZ" "SIGXCPU" "SIGPROF" "SIGTTOU" "SIGTTIN" "SIGCONT" "SIGTSTP" "SIGSTOP" "SIGPOLL" "SIGCHLD" "SIGUSR2" "SIGUSR1" "SIGTERM" "SIGALRM" "SIGPIPE" "SIGSEGV" "SIGKILL" "SIGABRT" "SIGTRAP" "SIGQUIT" "SIGAIO" "SIGLWP" "SIGURG" "SIGPWR" "SIGCLD" "SIGSYS" "SIGBUS" "SIGFPE" "SIGEMT" "SIGIOT" "SIGILL" "SIGINT" "SIGHUP" "SIGIO" "60" "34" "33" "32" "31" "30" "29" "28" "27" "26" "25" "24" "23" "22" "21" "20" "19" "18" "17" "16" "15" "14" "13" "12" "11" "10" "R:" "h" "m" "s" "9" "8" "7" "6" "5" "4" "3" "2" "1")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="send signal when time limit within time seconds"
+    declare -A subword_descr_id_from_literal_id=([3]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([65]=3 [77]=4 [37]=4 [76]=4 [36]=4 [75]=4 [24]=4 [74]=4 [35]=4 [73]=4 [23]=4 [72]=4 [34]=4 [22]=4 [71]=4 [33]=4 [70]=4 [32]=4 [69]=4 [21]=4 [64]=4 [31]=4 [63]=4 [20]=4 [62]=4 [30]=4 [61]=4 [19]=4 [60]=4 [18]=4 [59]=4 [17]=4 [58]=4 [16]=4 [57]=4 [15]=4 [56]=4 [29]=4 [14]=4 [55]=4 [28]=4 [54]=4 [4]=4 [53]=4 [27]=4 [52]=4 [13]=4 [38]=4 [51]=4 [12]=4 [50]=4 [11]=4 [49]=4 [10]=4 [48]=4 [9]=4 [47]=4 [8]=4 [46]=4 [2]=4 [45]=4 [7]=4 [44]=4 [6]=4 [43]=4 [5]=4 [42]=4 [1]=4 [41]=4 [26]=4 [40]=4 [25]=4)"
+    subword_literal_transitions[5]="([68]=6 [67]=6 [66]=6)"
+    subword_literal_transitions[4]="([39]=5)"
+    subword_literal_transitions[3]="([77]=4 [37]=4 [76]=4 [36]=4 [75]=4 [24]=4 [74]=4 [35]=4 [73]=4 [23]=4 [72]=4 [34]=4 [22]=4 [71]=4 [33]=4 [70]=4 [32]=4 [69]=4 [21]=4 [64]=4 [31]=4 [63]=4 [20]=4 [62]=4 [30]=4 [61]=4 [19]=4 [60]=4 [18]=4 [59]=4 [17]=4 [58]=4 [16]=4 [57]=4 [15]=4 [56]=4 [29]=4 [14]=4 [55]=4 [28]=4 [54]=4 [4]=4 [53]=4 [27]=4 [52]=4 [13]=4 [38]=4 [51]=4 [12]=4 [50]=4 [11]=4 [49]=4 [10]=4 [48]=4 [9]=4 [47]=4 [8]=4 [46]=4 [2]=4 [45]=4 [7]=4 [44]=4 [6]=4 [43]=4 [5]=4 [42]=4 [1]=4 [41]=4 [26]=4 [40]=4 [25]=4)"
+    subword_literal_transitions[1]="([3]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="65 77 37 76 36 75 24 74 35 73 23 72 34 22 71 33 70 32 69 21 64 31 63 20 62 30 61 19 60 18 59 17 58 16 57 15 56 29 14 55 28 54 4 53 27 52 13 38 51 12 50 11 49 10 48 9 47 8 46 2 45 7 44 6 43 5 42 1 41 26 40 25" [5]="68 67 66" [4]="39" [3]="77 37 76 36 75 24 74 35 73 23 72 34 22 71 33 70 32 69 21 64 31 63 20 62 30 61 19 60 18 59 17 58 16 57 15 56 29 14 55 28 54 4 53 27 52 13 38 51 12 50 11 49 10 48 9 47 8 46 2 45 7 44 6 43 5 42 1 41 26 40 25" [1]="3")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_37 () {
+    declare -a subword_literals=("--task-epilog=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="run 'program' after launching task"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    subword_compadd_transitions[2]="([4]=3)"
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=([2]="4")
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_38 () {
+    declare -a subword_literals=("--task-prolog=")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="run 'program' before launching task"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    subword_compadd_transitions[2]="([4]=3)"
+    declare -A subword_literal_transitions_level_0=([1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=([2]="4")
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_39 () {
+    declare -a subword_literals=("YYYY-MM-DD" "MM/DD/YY" "minutes" "seconds" "--time=" "THH:MM" "MMDDYY" "HH:MM" "weeks" "hours" "days" ":SS" "now" "+1")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="time limit"
+    declare -A subword_descr_id_from_literal_id=([5]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([13]=3 [8]=4 [7]=5 [2]=5 [1]=6)"
+    subword_literal_transitions[6]="([6]=4)"
+    subword_literal_transitions[4]="([12]=5)"
+    subword_literal_transitions[3]="([14]=7)"
+    subword_literal_transitions[1]="([5]=2)"
+    subword_literal_transitions[7]="([4]=5 [3]=5 [10]=5 [11]=5 [9]=5)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="13 8 7 2 1" [6]="6" [4]="12" [3]="14" [1]="5" [7]="4 3 10 11 9")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_40 () {
+    declare -a subword_literals=("--time-min=" "YYYY-MM-DD" "MM/DD/YY" "minutes" "seconds" "THH:MM" "MMDDYY" "HH:MM" "weeks" "hours" "days" ":SS" "now" "+1")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="minimum time limit (if distinct)"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([13]=3 [8]=4 [7]=5 [3]=5 [2]=6)"
+    subword_literal_transitions[6]="([6]=4)"
+    subword_literal_transitions[4]="([12]=5)"
+    subword_literal_transitions[3]="([14]=7)"
+    subword_literal_transitions[1]="([1]=2)"
+    subword_literal_transitions[7]="([5]=5 [4]=5 [10]=5 [11]=5 [9]=5)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="13 8 7 3 2" [6]="6" [4]="12" [3]="14" [1]="1" [7]="5 4 10 11 9")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_41 () {
+    declare -a subword_literals=("--wait=" "0")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="seconds to wait after first task exits"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_42 () {
+    declare -a subword_literals=("--cluster-constraint=" "!")
+    declare -A subword_descriptions=()
+    declare -A subword_descr_id_from_literal_id=()
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[2]="([11]=4)"
+    subword_command_transitions[3]="([11]=4)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=([2]="11" [3]="11")
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_43 () {
+    declare -a subword_literals=(",")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="specify a list of cluster constraints"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[2]="([11]=3)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=()
+    declare -A subword_literal_transitions_level_1=([1]="1")
+    declare -A subword_commands_level_0=([2]="11")
+    declare -A subword_commands_level_1=()
+    declare -A subword_compadd_commands_level_0=()
+    declare -A subword_compadd_commands_level_1=()
+    declare subword_max_fallback_level=1
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_44 () {
+    declare -a subword_literals=("--constraint=" ",")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="specify a list of constraints"
+    declare -A subword_descr_id_from_literal_id=([1]=0)
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[3]="([2]=2)"
+    subword_literal_transitions[1]="([1]=2)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[2]="([11]=3)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=()
+    declare -A subword_literal_transitions_level_1=([3]="2" [1]="1")
+    declare -A subword_commands_level_0=([2]="11")
+    declare -A subword_commands_level_1=()
+    declare -A subword_compadd_commands_level_0=()
+    declare -A subword_compadd_commands_level_1=()
+    declare subword_max_fallback_level=1
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_45 () {
+    declare -a subword_literals=("--mem=" "128G")
+    declare -A subword_descriptions=()
+    subword_descriptions[0]="minimum amount of real memory"
     declare -A subword_descr_id_from_literal_id=([1]=0)
     declare -A subword_literal_transitions=()
     subword_literal_transitions[2]="([2]=3)"
@@ -147,1020 +912,31 @@ _srun_subword_4 () {
     _srun_subword "$@"
 }
 
-_srun_subword_5 () {
-    declare -a subword_literals=("--bbf=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="burst buffer specification file"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([1]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_compadd_commands_level_0=([2]="1")
-    declare -A subword_compadd_commands_level_1=()
-    declare subword_max_fallback_level=1
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_6 () {
-    declare -a subword_literals=("--bcast=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="Copy executable file to compute nodes"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([1]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_compadd_commands_level_0=([2]="1")
-    declare -A subword_compadd_commands_level_1=()
-    declare subword_max_fallback_level=1
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_7 () {
-    declare -a subword_literals=("--bcast-exclude=")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([1]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_compadd_commands_level_0=([2]="1")
-    declare -A subword_compadd_commands_level_1=()
-    declare subword_max_fallback_level=1
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_8 () {
-    declare -a subword_literals=(",")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="Shared object directory paths to exclude"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([1]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=([2]="1")
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_9 () {
-    declare -a subword_literals=("YYYY-MM-DD" "MM/DD/YY" "--begin=" "minutes" "seconds" "THH:MM" "MMDDYY" "HH:MM" "weeks" "hours" "days" ":SS" "now" "+1")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="defer job until HH:MM MM/DD/YY"
-    declare -A subword_descr_id_from_literal_id=([3]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([13]=3 [8]=4 [7]=5 [2]=5 [1]=6)"
-    subword_literal_transitions[6]="([6]=4)"
-    subword_literal_transitions[4]="([12]=5)"
-    subword_literal_transitions[3]="([14]=7)"
-    subword_literal_transitions[1]="([3]=2)"
-    subword_literal_transitions[7]="([5]=5 [4]=5 [10]=5 [11]=5 [9]=5)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="13 8 7 2 1" [6]="6" [4]="12" [3]="14" [1]="3" [7]="5 4 10 11 9")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_10 () {
-    declare -a subword_literals=("--cpus-per-task=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of cpus required per task"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_11 () {
-    declare -a subword_literals=("--comment=" "...")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="arbitrary comment"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_12 () {
-    declare -a subword_literals=("--compress" "none" "lz4" "=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="data compression library used with --bcast"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([4]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    subword_literal_transitions[3]="([3]=4 [2]=4)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="4" [1]="1" [3]="3 2")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_13 () {
-    declare -a subword_literals=("--container=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="Path to OCI container bundle"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([1]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=([2]="1")
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_14 () {
-    declare -a subword_literals=("--container-id=" "...")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="OCI container ID"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_15 () {
-    declare -a subword_literals=("Conservative" "Performance" "--cpu-freq=" "UserSpace" "SchedUtil" "PowerSave" "OnDemand" "highm1" "medium" "high" "low" ":" "-" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="requested cpu frequency (and governor)"
-    declare -A subword_descr_id_from_literal_id=([3]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([23]=3 [22]=3 [21]=3 [20]=3 [19]=3 [18]=3 [17]=3 [16]=3 [15]=3 [14]=3 [11]=3 [9]=3 [10]=3 [8]=3)"
-    subword_literal_transitions[5]="([1]=6 [7]=6 [2]=6 [6]=6 [5]=6 [4]=6)"
-    subword_literal_transitions[4]="([23]=7 [22]=7 [21]=7 [20]=7 [19]=7 [18]=7 [17]=7 [16]=7 [15]=7 [14]=7 [9]=7 [10]=7 [8]=7)"
-    subword_literal_transitions[3]="([13]=4 [12]=5)"
-    subword_literal_transitions[1]="([3]=2)"
-    subword_literal_transitions[7]="([12]=5)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="23" [4]="23")
-    declare -A subword_literal_transitions_level_1=([2]="22 21 20 19 18 17 16 15 14" [4]="22 21 20 19 18 17 16 15 14")
-    declare -A subword_literal_transitions_level_2=([2]="11 9 10 8" [5]="1 7 2 6 5 4" [4]="9 10 8" [3]="13 12" [1]="3" [7]="12")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_16 () {
-    declare -a subword_literals=("afternotok" "aftercorr" "afterany" "afterok" "after" ":" ",")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([5]=3 [3]=3 [4]=3 [2]=3 [1]=3)"
-    subword_literal_transitions[5]="([6]=4)"
-    subword_literal_transitions[3]="([6]=4)"
-    subword_literal_transitions[1]="([7]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[4]="([2]=5)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([2]="5 3 4 2 1" [5]="6" [3]="6" [1]="7")
-    declare -A subword_commands_level_0=([4]="2")
-    declare -A subword_commands_level_1=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare subword_max_fallback_level=1
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_17 () {
-    declare -a subword_literals=("--dependency=" "afternotok" "aftercorr" "afterany" "afterok" "after" ":")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([6]=3 [4]=3 [5]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[5]="([7]=4)"
-    subword_literal_transitions[3]="([7]=4)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[4]="([2]=5)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([2]="6 4 5 3 2" [5]="7" [3]="7" [1]="1")
-    declare -A subword_commands_level_0=([4]="2")
-    declare -A subword_commands_level_1=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare subword_max_fallback_level=1
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_18 () {
-    declare -a subword_literals=("afternotok" "aftercorr" "afterany" "afterok" "after" ":" ",")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([5]=3 [3]=3 [4]=3 [2]=3 [1]=3)"
-    subword_literal_transitions[5]="([6]=4)"
-    subword_literal_transitions[3]="([6]=4)"
-    subword_literal_transitions[1]="([7]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[4]="([2]=5)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="5 3 4 2 1" [5]="6" [3]="6" [1]="7")
-    declare -A subword_commands_level_0=([4]="2")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_19 () {
-    declare -a subword_literals=("--deadline=" "YYYY-MM-DD" "MM/DD/YY" "minutes" "seconds" "THH:MM" "MMDDYY" "HH:MM" "weeks" "hours" "days" ":SS" "now" "+1")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="remove the job if no ending possible before this deadline (start > (deadline - time[-min]))"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([13]=3 [8]=4 [7]=5 [3]=5 [2]=6)"
-    subword_literal_transitions[6]="([6]=4)"
-    subword_literal_transitions[4]="([12]=5)"
-    subword_literal_transitions[3]="([14]=7)"
-    subword_literal_transitions[1]="([1]=2)"
-    subword_literal_transitions[7]="([5]=5 [4]=5 [10]=5 [11]=5 [9]=5)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="13 8 7 3 2" [6]="6" [4]="12" [3]="14" [1]="1" [7]="5 4 10 11 9")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_20 () {
-    declare -a subword_literals=("--delay-boot=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="delay boot for desired node features"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_21 () {
-    declare -a subword_literals=("--chdir=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="change remote current working directory"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([3]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=([2]="3")
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_22 () {
-    declare -a subword_literals=("--export=" ",ENVVAR" "NONE" "ALL")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="environment variables passed to launcher with optional values or NONE (pass no variables)"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([4]=3 [3]=4)"
-    subword_literal_transitions[1]="([1]=2)"
-    subword_literal_transitions[3]="([2]=4)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="4 3" [1]="1" [3]="2")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_23 () {
-    declare -a subword_literals=("--error=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="location of stderr redirection"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([1]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=([2]="1")
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_24 () {
-    declare -a subword_literals=("--epilog=" "none")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="run 'program' after launching job step"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([4]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=([2]="4")
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_25 () {
-    declare -a subword_literals=("--gres=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="required generic resources"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([5]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=([2]="5")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_26 () {
-    declare -a subword_literals=("multiple-tasks-per-sharing" "one-task-per-sharing" "allow-task-sharing" "enforce-binding" "disable-binding" "--gres-flags=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="flags related to GRES management"
-    declare -A subword_descr_id_from_literal_id=([6]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([3]=3 [1]=3 [5]=3 [4]=3 [2]=3)"
-    subword_literal_transitions[1]="([6]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="3 1 5 4 2" [1]="6")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_27 () {
-    declare -a subword_literals=("--input=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="location of stdin redirection"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([1]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=([2]="1")
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_28 () {
-    declare -a subword_literals=("--immediate" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0" "=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="exit if resources not available in secs"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([12]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    subword_literal_transitions[3]="([11]=4 [10]=4 [9]=4 [8]=4 [7]=4 [6]=4 [5]=4 [4]=4 [3]=4 [2]=4)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([3]="11")
-    declare -A subword_literal_transitions_level_1=([3]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([2]="12" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_29 () {
-    declare -a subword_literals=("--jobid=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="run under already allocated job"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([2]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=([2]="2")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_30 () {
-    declare -a subword_literals=("--job-name=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="name of job"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([6]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=([2]="6")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_31 () {
-    declare -a subword_literals=("9" "8" "7" "6" "5" "4" "3" "2" "1" "0" ":" ",")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[3]="([11]=4)"
-    subword_literal_transitions[1]="([12]=2)"
-    subword_literal_transitions[4]="([10]=5 [9]=5 [8]=5 [7]=5 [6]=5 [5]=5 [4]=5 [3]=5 [2]=5 [1]=5)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([7]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([4]="10")
-    declare -A subword_literal_transitions_level_1=([3]="11" [1]="12" [4]="9 8 7 6 5 4 3 2 1")
-    declare -A subword_commands_level_0=([2]="7")
-    declare -A subword_commands_level_1=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare subword_max_fallback_level=1
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_32 () {
-    declare -a subword_literals=("--licenses=")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([7]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([1]="1")
-    declare -A subword_commands_level_0=([2]="7")
-    declare -A subword_commands_level_1=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare subword_max_fallback_level=1
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_33 () {
-    declare -a subword_literals=("9" "8" "7" "6" "5" "4" "3" "2" "1" "0" ":" ",")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[3]="([11]=4)"
-    subword_literal_transitions[1]="([12]=2)"
-    subword_literal_transitions[4]="([10]=5 [9]=5 [8]=5 [7]=5 [6]=5 [5]=5 [4]=5 [3]=5 [2]=5 [1]=5)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([7]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([4]="10")
-    declare -A subword_literal_transitions_level_1=([4]="9 8 7 6 5 4 3 2 1")
-    declare -A subword_literal_transitions_level_2=([3]="11" [1]="12")
-    declare -A subword_commands_level_0=([2]="7")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_34 () {
-    declare -a subword_literals=("--clusters=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="Comma separated list of clusters to issue"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([8]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=([2]="8")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_35 () {
-    declare -a subword_literals=("--distribution=" "arbitrary" "cyclic" "plane" "block")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="distribution method for processes to nodes"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([5]=3 [3]=3 [2]=3 [4]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="5 3 2 4" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_36 () {
-    declare -a subword_literals=("TIME_LIMIT_50" "TIME_LIMIT_80" "TIME_LIMIT_90" "--mail-type=" "ARRAY_TASKS" "TIME_LIMIT" "STAGE_OUT" "REQUEUE" "BEGIN" "FAIL" "NONE" "ALL" "END")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="notify on state change: BEGIN, END, FAIL or ALL"
-    declare -A subword_descr_id_from_literal_id=([4]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [9]=3 [13]=3 [10]=3 [12]=3 [8]=3 [7]=3 [6]=3 [3]=3 [2]=3 [1]=3 [5]=3)"
-    subword_literal_transitions[1]="([4]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="11 9 13 10 12 8 7 6 3 2 1 5" [1]="4")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_37 () {
-    declare -a subword_literals=("--mail-user=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="who to send email notification for job state changes"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([9]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=([2]="9")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_38 () {
-    declare -a subword_literals=("--mcs-label=" "...")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="mcs label if mcs plugin mcs/group is used"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_39 () {
-    declare -a subword_literals=("cray_shasta" "--mpi=" "none" "pmix" "pmi2" "list")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="type of MPI being used"
-    declare -A subword_descr_id_from_literal_id=([2]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([1]=3 [6]=3 [5]=3 [4]=3 [3]=3)"
-    subword_literal_transitions[1]="([2]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="1 6 5 4 3" [1]="2")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_40 () {
-    declare -a subword_literals=("--ntasks=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of tasks to run"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_41 () {
-    declare -a subword_literals=("--nice" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0" "=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="decrease scheduling priority by value"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([12]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    subword_literal_transitions[3]="([11]=4 [10]=4 [9]=4 [8]=4 [7]=4 [6]=4 [5]=4 [4]=4 [3]=4 [2]=4)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([3]="11")
-    declare -A subword_literal_transitions_level_1=([3]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([2]="12" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_42 () {
-    declare -a subword_literals=("--ntasks-per-node=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of tasks to invoke on each node"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_43 () {
-    declare -a subword_literals=("--nodes=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of nodes on which to run (N = min[-max])"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_44 () {
-    declare -a subword_literals=("--output=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="location of stdout redirection"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([1]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=([2]="1")
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_45 () {
-    declare -a subword_literals=("--het-group=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="hetjob component allocation(s) in which to launch application"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
 _srun_subword_46 () {
-    declare -a subword_literals=("--partition=")
+    declare -a subword_literals=("--mem-per-cpu=" "8G")
     declare -A subword_descriptions=()
-    subword_descriptions[0]="partition requested"
+    subword_descriptions[0]="maximum amount of real memory per allocated cpu required by the job. --mem >= --mem-per-cpu if --mem is specified."
     declare -A subword_descr_id_from_literal_id=([1]=0)
     declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
     subword_literal_transitions[1]="([1]=2)"
     declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([10]=3)"
     declare -A subword_compadd_transitions=()
     declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=([2]="10")
+    declare -A subword_literal_transitions_level_1=([2]="2" [1]="1")
+    declare -A subword_commands_level_0=()
     declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
     declare -A subword_compadd_commands_level_0=()
     declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
+    declare subword_max_fallback_level=1
     declare subword_state=1
     _srun_subword "$@"
 }
 
 _srun_subword_47 () {
-    declare -a subword_literals=("--power=" "...")
+    declare -a subword_literals=("--mem-per-gpu=" "64G")
     declare -A subword_descriptions=()
-    subword_descriptions[0]="power management options"
+    subword_descriptions[0]="real memory required per allocated GPU"
     declare -A subword_descr_id_from_literal_id=([1]=0)
     declare -A subword_literal_transitions=()
     subword_literal_transitions[2]="([2]=3)"
@@ -1168,706 +944,17 @@ _srun_subword_47 () {
     declare -A subword_command_transitions=()
     declare -A subword_compadd_transitions=()
     declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1")
+    declare -A subword_literal_transitions_level_1=([2]="2" [1]="1")
     declare -A subword_commands_level_0=()
     declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
     declare -A subword_compadd_commands_level_0=()
     declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
+    declare subword_max_fallback_level=1
     declare subword_state=1
     _srun_subword "$@"
 }
 
 _srun_subword_48 () {
-    declare -a subword_literals=("--priority=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="set the priority of the job to value"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_49 () {
-    declare -a subword_literals=("--prolog=" "none")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="run 'program' before launching job step"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([4]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=([2]="4")
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_50 () {
-    declare -a subword_literals=("filesystem" "--profile=" "network" "energy" "task" "none" "all" ",")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="enable acct_gather_profile for detailed data value is all or none or any combination of energy, lustre, network or task"
-    declare -A subword_descr_id_from_literal_id=([2]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [1]=3 [8]=4)"
-    subword_literal_transitions[5]="([8]=4)"
-    subword_literal_transitions[4]="([5]=5 [4]=5 [3]=5 [1]=5)"
-    subword_literal_transitions[1]="([2]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="7 6 5 4 3 1")
-    declare -A subword_literal_transitions_level_1=([2]="8" [5]="8" [4]="5 4 3 1")
-    declare -A subword_literal_transitions_level_2=([1]="2")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_51 () {
-    declare -a subword_literals=("--propagate" "=rlimits")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="propagate all [or specific list of] rlimits"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_52 () {
-    declare -a subword_literals=("--pty" "=fd")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="run task zero in pseudo terminal [or in requested terminal given by fd]"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_53 () {
-    declare -a subword_literals=("--qos=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="quality of service"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([11]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=([2]="11")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_54 () {
-    declare -a subword_literals=("--relative=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="run job step relative to node n of allocation"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_55 () {
-    declare -a subword_literals=("--core-spec=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="count of reserved cores"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_56 () {
-    declare -a subword_literals=("--send-libs=" "yes" "no")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="autodetect and broadcast shared objects"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3 [3]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2 3" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_57 () {
-    declare -a subword_literals=("SIGWAITING" "SIGVTALRM" "--signal=" "SIGWINCH" "SIGXFSZ" "SIGXCPU" "SIGPROF" "SIGTTOU" "SIGTTIN" "SIGCONT" "SIGTSTP" "SIGSTOP" "SIGPOLL" "SIGCHLD" "SIGUSR2" "SIGUSR1" "SIGTERM" "SIGALRM" "SIGPIPE" "SIGSEGV" "SIGKILL" "SIGABRT" "SIGTRAP" "SIGQUIT" "SIGAIO" "SIGLWP" "SIGURG" "SIGPWR" "SIGCLD" "SIGSYS" "SIGBUS" "SIGFPE" "SIGEMT" "SIGIOT" "SIGILL" "SIGINT" "SIGHUP" "SIGIO" "60" "34" "33" "32" "31" "30" "29" "28" "27" "26" "25" "24" "23" "22" "21" "20" "19" "18" "17" "16" "15" "14" "13" "12" "11" "10" "R:" "h" "m" "s" "9" "8" "7" "6" "5" "4" "3" "2" "1")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="send signal when time limit within time seconds"
-    declare -A subword_descr_id_from_literal_id=([3]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([65]=3 [77]=4 [37]=4 [76]=4 [36]=4 [75]=4 [24]=4 [74]=4 [35]=4 [73]=4 [23]=4 [72]=4 [34]=4 [22]=4 [71]=4 [33]=4 [70]=4 [32]=4 [69]=4 [21]=4 [64]=4 [31]=4 [63]=4 [20]=4 [62]=4 [30]=4 [61]=4 [19]=4 [60]=4 [18]=4 [59]=4 [17]=4 [58]=4 [16]=4 [57]=4 [15]=4 [56]=4 [29]=4 [14]=4 [55]=4 [28]=4 [54]=4 [4]=4 [53]=4 [27]=4 [52]=4 [13]=4 [38]=4 [51]=4 [12]=4 [50]=4 [11]=4 [49]=4 [10]=4 [48]=4 [9]=4 [47]=4 [8]=4 [46]=4 [2]=4 [45]=4 [7]=4 [44]=4 [6]=4 [43]=4 [5]=4 [42]=4 [1]=4 [41]=4 [26]=4 [40]=4 [25]=4)"
-    subword_literal_transitions[5]="([68]=6 [67]=6 [66]=6)"
-    subword_literal_transitions[4]="([39]=5)"
-    subword_literal_transitions[3]="([77]=4 [37]=4 [76]=4 [36]=4 [75]=4 [24]=4 [74]=4 [35]=4 [73]=4 [23]=4 [72]=4 [34]=4 [22]=4 [71]=4 [33]=4 [70]=4 [32]=4 [69]=4 [21]=4 [64]=4 [31]=4 [63]=4 [20]=4 [62]=4 [30]=4 [61]=4 [19]=4 [60]=4 [18]=4 [59]=4 [17]=4 [58]=4 [16]=4 [57]=4 [15]=4 [56]=4 [29]=4 [14]=4 [55]=4 [28]=4 [54]=4 [4]=4 [53]=4 [27]=4 [52]=4 [13]=4 [38]=4 [51]=4 [12]=4 [50]=4 [11]=4 [49]=4 [10]=4 [48]=4 [9]=4 [47]=4 [8]=4 [46]=4 [2]=4 [45]=4 [7]=4 [44]=4 [6]=4 [43]=4 [5]=4 [42]=4 [1]=4 [41]=4 [26]=4 [40]=4 [25]=4)"
-    subword_literal_transitions[1]="([3]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="65 77 37 76 36 75 24 74 35 73 23 72 34 22 71 33 70 32 69 21 64 31 63 20 62 30 61 19 60 18 59 17 58 16 57 15 56 29 14 55 28 54 4 53 27 52 13 38 51 12 50 11 49 10 48 9 47 8 46 2 45 7 44 6 43 5 42 1 41 26 40 25" [5]="68 67 66" [4]="39" [3]="77 37 76 36 75 24 74 35 73 23 72 34 22 71 33 70 32 69 21 64 31 63 20 62 30 61 19 60 18 59 17 58 16 57 15 56 29 14 55 28 54 4 53 27 52 13 38 51 12 50 11 49 10 48 9 47 8 46 2 45 7 44 6 43 5 42 1 41 26 40 25" [1]="3")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_58 () {
-    declare -a subword_literals=("--slurmd-debug=" "verbose" "debug2" "debug" "error" "info" "6" "5" "4" "3" "2")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="slurmd debug level"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [5]=3 [10]=3 [6]=3 [9]=3 [2]=3 [8]=3 [4]=3 [7]=3 [3]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="11 5 10 6 9 2 8 4 7 3" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_59 () {
-    declare -a subword_literals=("--task-epilog=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="run 'program' after launching task"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([4]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=([2]="4")
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_60 () {
-    declare -a subword_literals=("--task-prolog=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="run 'program' before launching task"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([4]=3)"
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=([2]="4")
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_61 () {
-    declare -a subword_literals=("--thread-spec=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="count of reserved threads"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_62 () {
-    declare -a subword_literals=("--threads=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="set srun launch fanout"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_63 () {
-    declare -a subword_literals=("YYYY-MM-DD" "MM/DD/YY" "minutes" "seconds" "--time=" "THH:MM" "MMDDYY" "HH:MM" "weeks" "hours" "days" ":SS" "now" "+1")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="time limit"
-    declare -A subword_descr_id_from_literal_id=([5]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([13]=3 [8]=4 [7]=5 [2]=5 [1]=6)"
-    subword_literal_transitions[6]="([6]=4)"
-    subword_literal_transitions[4]="([12]=5)"
-    subword_literal_transitions[3]="([14]=7)"
-    subword_literal_transitions[1]="([5]=2)"
-    subword_literal_transitions[7]="([4]=5 [3]=5 [10]=5 [11]=5 [9]=5)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="13 8 7 2 1" [6]="6" [4]="12" [3]="14" [1]="5" [7]="4 3 10 11 9")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_64 () {
-    declare -a subword_literals=("--time-min=" "YYYY-MM-DD" "MM/DD/YY" "minutes" "seconds" "THH:MM" "MMDDYY" "HH:MM" "weeks" "hours" "days" ":SS" "now" "+1")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="minimum time limit (if distinct)"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([13]=3 [8]=4 [7]=5 [3]=5 [2]=6)"
-    subword_literal_transitions[6]="([6]=4)"
-    subword_literal_transitions[4]="([12]=5)"
-    subword_literal_transitions[3]="([14]=7)"
-    subword_literal_transitions[1]="([1]=2)"
-    subword_literal_transitions[7]="([5]=5 [4]=5 [10]=5 [11]=5 [9]=5)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="13 8 7 3 2" [6]="6" [4]="12" [3]="14" [1]="1" [7]="5 4 10 11 9")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_65 () {
-    declare -a subword_literals=("--tres-bind=" "...")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="task to tres binding options"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_66 () {
-    declare -a subword_literals=("--tres-per-task=" "...")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="list of tres required per task"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_67 () {
-    declare -a subword_literals=("--wait=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="seconds to wait after first task exits"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_68 () {
-    declare -a subword_literals=("--wckey=")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="wckey to run job under"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([12]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=([2]="12")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_69 () {
-    declare -a subword_literals=("--cluster-constraint=")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([13]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=([2]="13")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_70 () {
-    declare -a subword_literals=(",")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="specify a list of cluster-constraints"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([13]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=([2]="13")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_71 () {
-    declare -a subword_literals=(",")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([13]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([1]="1")
-    declare -A subword_commands_level_0=([2]="13")
-    declare -A subword_commands_level_1=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare subword_max_fallback_level=1
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_72 () {
-    declare -a subword_literals=("--constraint=")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([13]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([1]="1")
-    declare -A subword_commands_level_0=([2]="13")
-    declare -A subword_commands_level_1=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare subword_max_fallback_level=1
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_73 () {
-    declare -a subword_literals=(",")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([13]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([1]="1")
-    declare -A subword_commands_level_0=([2]="13")
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_74 () {
-    declare -a subword_literals=("--mem=" "T" "G" "M" "K" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="minimum amount of real memory"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([15]=3 [14]=3 [13]=3 [12]=3 [11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    subword_literal_transitions[3]="([5]=4 [4]=4 [3]=4 [2]=4)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="15")
-    declare -A subword_literal_transitions_level_1=([2]="14 13 12 11 10 9 8 7 6")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([3]="5 4 3 2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_75 () {
-    declare -a subword_literals=("--mincpus=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="minimum number of logical processors (threads) per node"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_76 () {
     declare -a subword_literals=("--reservation=")
     declare -A subword_descriptions=()
     subword_descriptions[0]="allocate resources from named reservation"
@@ -1875,115 +962,85 @@ _srun_subword_76 () {
     declare -A subword_literal_transitions=()
     subword_literal_transitions[1]="([1]=2)"
     declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([14]=3)"
+    subword_command_transitions[2]="([12]=3)"
     declare -A subword_compadd_transitions=()
     declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=([2]="14")
+    declare -A subword_literal_transitions_level_1=([1]="1")
+    declare -A subword_commands_level_0=([2]="12")
     declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
     declare -A subword_compadd_commands_level_0=()
     declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
+    declare subword_max_fallback_level=1
     declare subword_state=1
     _srun_subword "$@"
 }
 
-_srun_subword_77 () {
-    declare -a subword_literals=("--tmp=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
+_srun_subword_49 () {
+    declare -a subword_literals=("--tmp=" "10G")
     declare -A subword_descriptions=()
     subword_descriptions[0]="minimum amount of temporary disk"
     declare -A subword_descr_id_from_literal_id=([1]=0)
     declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
+    subword_literal_transitions[2]="([2]=3)"
     subword_literal_transitions[1]="([1]=2)"
     declare -A subword_command_transitions=()
     declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
+    declare -A subword_literal_transitions_level_0=()
+    declare -A subword_literal_transitions_level_1=([2]="2" [1]="1")
     declare -A subword_commands_level_0=()
     declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
     declare -A subword_compadd_commands_level_0=()
     declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
+    declare subword_max_fallback_level=1
     declare subword_state=1
     _srun_subword "$@"
 }
 
-_srun_subword_78 () {
+_srun_subword_50 () {
     declare -a subword_literals=("--nodelist=" ",")
     declare -A subword_descriptions=()
     subword_descriptions[0]="request a specific list of hosts"
     declare -A subword_descr_id_from_literal_id=([1]=0)
     declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=4)"
+    subword_literal_transitions[3]="([2]=2)"
     subword_literal_transitions[1]="([1]=2)"
-    subword_literal_transitions[5]="([2]=4)"
     declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([15]=3)"
-    subword_command_transitions[4]="([15]=5)"
+    subword_command_transitions[2]="([13]=3)"
     declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([1]=3)"
     declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([2]="2" [5]="2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=([2]="15" [4]="15")
+    declare -A subword_literal_transitions_level_1=([3]="2" [1]="1")
+    declare -A subword_commands_level_0=([2]="13")
     declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=([2]="1")
+    declare -A subword_compadd_commands_level_0=()
     declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
+    declare subword_max_fallback_level=1
     declare subword_state=1
     _srun_subword "$@"
 }
 
-_srun_subword_79 () {
+_srun_subword_51 () {
     declare -a subword_literals=("--exclude=" ",")
     declare -A subword_descriptions=()
     subword_descriptions[0]="exclude a specific list of hosts"
     declare -A subword_descr_id_from_literal_id=([1]=0)
     declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=4)"
+    subword_literal_transitions[3]="([2]=2)"
     subword_literal_transitions[1]="([1]=2)"
-    subword_literal_transitions[5]="([2]=4)"
     declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([15]=3)"
-    subword_command_transitions[4]="([15]=5)"
+    subword_command_transitions[2]="([13]=3)"
     declare -A subword_compadd_transitions=()
-    subword_compadd_transitions[2]="([1]=3)"
     declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([2]="2" [5]="2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=([2]="15" [4]="15")
+    declare -A subword_literal_transitions_level_1=([3]="2" [1]="1")
+    declare -A subword_commands_level_0=([2]="13")
     declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=([2]="1")
+    declare -A subword_compadd_commands_level_0=()
     declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
+    declare subword_max_fallback_level=1
     declare subword_state=1
     _srun_subword "$@"
 }
 
-_srun_subword_80 () {
+_srun_subword_52 () {
     declare -a subword_literals=("--exclusive" "=user")
     declare -A subword_descriptions=()
     subword_descriptions[0]="for job allocation, this allocates nodes in in exclusive mode for job steps, this is equivalent to --exact"
@@ -1994,23 +1051,17 @@ _srun_subword_80 () {
     declare -A subword_command_transitions=()
     declare -A subword_compadd_transitions=()
     declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([2]="2" [1]="1")
+    declare -A subword_literal_transitions_level_1=([2]="2" [1]="1")
     declare -A subword_commands_level_0=()
     declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
     declare -A subword_compadd_commands_level_0=()
     declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
+    declare subword_max_fallback_level=1
     declare subword_state=1
     _srun_subword "$@"
 }
 
-_srun_subword_81 () {
+_srun_subword_53 () {
     declare -a subword_literals=("--exclusive" "=mcs")
     declare -A subword_descriptions=()
     subword_descriptions[0]="allocate nodes in exclusive mode when cpu consumable resource is enabled and mcs plugin is enabled (--exact implied) or don't share CPUs for job steps"
@@ -2021,494 +1072,50 @@ _srun_subword_81 () {
     declare -A subword_command_transitions=()
     declare -A subword_compadd_transitions=()
     declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([2]="2" [1]="1")
+    declare -A subword_literal_transitions_level_1=([2]="2" [1]="1")
     declare -A subword_commands_level_0=()
     declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
     declare -A subword_compadd_commands_level_0=()
     declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
+    declare subword_max_fallback_level=1
     declare subword_state=1
     _srun_subword "$@"
 }
 
-_srun_subword_82 () {
-    declare -a subword_literals=("--mem-per-cpu=" "T" "G" "M" "K" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="maximum amount of real memory per allocated cpu required by the job. --mem >= --mem-per-cpu if --mem is specified."
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([15]=3 [14]=3 [13]=3 [12]=3 [11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    subword_literal_transitions[3]="([5]=4 [4]=4 [3]=4 [2]=4)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="15")
-    declare -A subword_literal_transitions_level_1=([2]="14 13 12 11 10 9 8 7 6")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([3]="5 4 3 2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_83 () {
-    declare -a subword_literals=("--sockets-per-node=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of sockets per node to allocate"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_84 () {
-    declare -a subword_literals=("--cores-per-socket=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of cores per socket to allocate"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_85 () {
-    declare -a subword_literals=("--threads-per-core=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of threads per core to allocate"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_86 () {
-    declare -a subword_literals=("--extra-node-info=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="combine request of sockets per node,"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_87 () {
-    declare -a subword_literals=("--ntasks-per-core=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of tasks to invoke on each core"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_88 () {
-    declare -a subword_literals=("--ntasks-per-socket=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of tasks to invoke on each socket"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_89 () {
-    declare -a subword_literals=("--cpu-bind=" "...")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="Bind tasks to CPUs (see '--cpu-bind=help' for options)"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_90 () {
-    declare -a subword_literals=("--hint=" "...")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="Bind tasks according to application hints (see '--hint=help' for options)"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_91 () {
-    declare -a subword_literals=("--cpus-per-gpu=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
+_srun_subword_54 () {
+    declare -a subword_literals=("--cpus-per-gpu=" "8")
     declare -A subword_descriptions=()
     subword_descriptions[0]="number of CPUs required per allocated GPU"
     declare -A subword_descr_id_from_literal_id=([1]=0)
     declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
+    subword_literal_transitions[2]="([2]=3)"
     subword_literal_transitions[1]="([1]=2)"
     declare -A subword_command_transitions=()
     declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
+    declare -A subword_literal_transitions_level_0=()
+    declare -A subword_literal_transitions_level_1=([2]="2" [1]="1")
     declare -A subword_commands_level_0=()
     declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
     declare -A subword_compadd_commands_level_0=()
     declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
+    declare subword_max_fallback_level=1
     declare subword_state=1
     _srun_subword "$@"
 }
 
-_srun_subword_92 () {
-    declare -a subword_literals=("--gpus=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
+_srun_subword_55 () {
+    declare -a subword_literals=("--gpus=" "1")
     declare -A subword_descriptions=()
     subword_descriptions[0]="count of GPUs required for the job"
     declare -A subword_descr_id_from_literal_id=([1]=0)
     declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_93 () {
-    declare -a subword_literals=("--gpu-bind=" "...")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="task to gpu binding options"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
     subword_literal_transitions[2]="([2]=3)"
     subword_literal_transitions[1]="([1]=2)"
     declare -A subword_command_transitions=()
     declare -A subword_compadd_transitions=()
     declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([2]="2" [1]="1")
+    declare -A subword_literal_transitions_level_1=([2]="2" [1]="1")
     declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_94 () {
-    declare -a subword_literals=("--gpu-freq=" "...")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="frequency and voltage of GPUs"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([2]="2" [1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_95 () {
-    declare -a subword_literals=("--gpus-per-node=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of GPUs required per allocated node"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_96 () {
-    declare -a subword_literals=("--gpus-per-socket=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of GPUs required per allocated socket"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_97 () {
-    declare -a subword_literals=("--gpus-per-task=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="number of GPUs required per spawned task"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_98 () {
-    declare -a subword_literals=("--mem-per-gpu=" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
-    declare -A subword_descriptions=()
-    subword_descriptions[0]="real memory required per allocated GPU"
-    declare -A subword_descr_id_from_literal_id=([1]=0)
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([11]=3 [10]=3 [9]=3 [8]=3 [7]=3 [6]=3 [5]=3 [4]=3 [3]=3 [2]=3)"
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="11")
-    declare -A subword_literal_transitions_level_1=([2]="10 9 8 7 6 5 4 3 2")
-    declare -A subword_literal_transitions_level_2=()
-    declare -A subword_literal_transitions_level_3=([1]="1")
-    declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
-    declare -A subword_commands_level_3=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare -A subword_compadd_commands_level_3=()
-    declare subword_max_fallback_level=3
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_99 () {
-    declare -a subword_literals=(",")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([15]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([1]="1")
-    declare -A subword_commands_level_0=([2]="15")
     declare -A subword_commands_level_1=()
     declare -A subword_compadd_commands_level_0=()
     declare -A subword_compadd_commands_level_1=()
@@ -2517,38 +1124,18 @@ _srun_subword_99 () {
     _srun_subword "$@"
 }
 
-_srun_subword_100 () {
-    declare -a subword_literals=(",")
+_srun_subword_56 () {
+    declare -a subword_literals=("afternotok" "aftercorr" "afterany" "afterok" "after" "," ":")
     declare -A subword_descriptions=()
     declare -A subword_descr_id_from_literal_id=()
     declare -A subword_literal_transitions=()
-    subword_literal_transitions[1]="([1]=2)"
-    declare -A subword_command_transitions=()
-    subword_command_transitions[2]="([15]=3)"
-    declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=([1]="1")
-    declare -A subword_commands_level_0=([2]="15")
-    declare -A subword_commands_level_1=()
-    declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare subword_max_fallback_level=1
-    declare subword_state=1
-    _srun_subword "$@"
-}
-
-_srun_subword_101 () {
-    declare -a subword_literals=("afternotok" "aftercorr" "afterany" "afterok" "after" ":")
-    declare -A subword_descriptions=()
-    declare -A subword_descr_id_from_literal_id=()
-    declare -A subword_literal_transitions=()
-    subword_literal_transitions[2]="([6]=3)"
-    subword_literal_transitions[1]="([5]=2 [3]=2 [4]=2 [2]=2 [1]=2)"
-    subword_literal_transitions[4]="([6]=3)"
+    subword_literal_transitions[2]="([7]=3)"
+    subword_literal_transitions[1]="([5]=2 [3]=2 [4]=2 [2]=2 [1]=2 [6]=1)"
+    subword_literal_transitions[4]="([7]=3 [6]=1)"
     declare -A subword_command_transitions=()
     subword_command_transitions[3]="([2]=4)"
     declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=([2]="6" [1]="5 3 4 2 1" [4]="6")
+    declare -A subword_literal_transitions_level_0=([2]="7" [1]="5 3 4 2 1 6" [4]="7 6")
     declare -A subword_commands_level_0=([3]="2")
     declare -A subword_compadd_commands_level_0=()
     declare subword_max_fallback_level=0
@@ -2556,7 +1143,27 @@ _srun_subword_101 () {
     _srun_subword "$@"
 }
 
-_srun_subword_102 () {
+_srun_subword_57 () {
+    declare -a subword_literals=(",")
+    declare -A subword_descriptions=()
+    declare -A subword_descr_id_from_literal_id=()
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([1]=1)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[1]="([11]=2)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=()
+    declare -A subword_literal_transitions_level_1=([2]="1")
+    declare -A subword_commands_level_0=([1]="11")
+    declare -A subword_commands_level_1=()
+    declare -A subword_compadd_commands_level_0=()
+    declare -A subword_compadd_commands_level_1=()
+    declare subword_max_fallback_level=1
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_58 () {
     declare -a subword_literals=("minutes" "seconds" "weeks" "hours" "days" "now" "+1")
     declare -A subword_descriptions=()
     declare -A subword_descr_id_from_literal_id=()
@@ -2566,21 +1173,15 @@ _srun_subword_102 () {
     subword_literal_transitions[3]="([2]=4 [1]=4 [4]=4 [5]=4 [3]=4)"
     declare -A subword_command_transitions=()
     declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="7" [1]="6" [3]="2 1 4 5 3")
+    declare -A subword_literal_transitions_level_0=([2]="7" [1]="6" [3]="2 1 4 5 3")
     declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
     declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
+    declare subword_max_fallback_level=0
     declare subword_state=1
     _srun_subword "$@"
 }
 
-_srun_subword_103 () {
+_srun_subword_59 () {
     declare -a subword_literals=("HH:MM" ":SS")
     declare -A subword_descriptions=()
     declare -A subword_descr_id_from_literal_id=()
@@ -2589,21 +1190,15 @@ _srun_subword_103 () {
     subword_literal_transitions[1]="([1]=2)"
     declare -A subword_command_transitions=()
     declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1")
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1")
     declare -A subword_commands_level_0=()
-    declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
     declare -A subword_compadd_commands_level_0=()
-    declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
+    declare subword_max_fallback_level=0
     declare subword_state=1
     _srun_subword "$@"
 }
 
-_srun_subword_104 () {
+_srun_subword_60 () {
     declare -a subword_literals=("YYYY-MM-DD" "THH:MM" ":SS")
     declare -A subword_descriptions=()
     declare -A subword_descr_id_from_literal_id=()
@@ -2613,16 +1208,69 @@ _srun_subword_104 () {
     subword_literal_transitions[3]="([3]=4)"
     declare -A subword_command_transitions=()
     declare -A subword_compadd_transitions=()
-    declare -A subword_literal_transitions_level_0=()
-    declare -A subword_literal_transitions_level_1=()
-    declare -A subword_literal_transitions_level_2=([2]="2" [1]="1" [3]="3")
+    declare -A subword_literal_transitions_level_0=([2]="2" [1]="1" [3]="3")
     declare -A subword_commands_level_0=()
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_61 () {
+    declare -a subword_literals=(",")
+    declare -A subword_descriptions=()
+    declare -A subword_descr_id_from_literal_id=()
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([1]=1)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[1]="([13]=2)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=()
+    declare -A subword_literal_transitions_level_1=([2]="1")
+    declare -A subword_commands_level_0=([1]="13")
     declare -A subword_commands_level_1=()
-    declare -A subword_commands_level_2=()
     declare -A subword_compadd_commands_level_0=()
     declare -A subword_compadd_commands_level_1=()
-    declare -A subword_compadd_commands_level_2=()
-    declare subword_max_fallback_level=2
+    declare subword_max_fallback_level=1
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_62 () {
+    declare -a subword_literals=("0" ",")
+    declare -A subword_descriptions=()
+    declare -A subword_descr_id_from_literal_id=()
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([2]=3)"
+    subword_literal_transitions[4]="([2]=3 [1]=2)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[3]="([6]=4)"
+    subword_command_transitions[1]="([6]=2)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=([2]="2" [4]="2 1")
+    declare -A subword_commands_level_0=([3]="6" [1]="6")
+    declare -A subword_compadd_commands_level_0=()
+    declare subword_max_fallback_level=0
+    declare subword_state=1
+    _srun_subword "$@"
+}
+
+_srun_subword_63 () {
+    declare -a subword_literals=(",")
+    declare -A subword_descriptions=()
+    declare -A subword_descr_id_from_literal_id=()
+    declare -A subword_literal_transitions=()
+    subword_literal_transitions[2]="([1]=1)"
+    declare -A subword_command_transitions=()
+    subword_command_transitions[1]="([13]=2)"
+    declare -A subword_compadd_transitions=()
+    declare -A subword_literal_transitions_level_0=()
+    declare -A subword_literal_transitions_level_1=([2]="1")
+    declare -A subword_commands_level_0=([1]="13")
+    declare -A subword_commands_level_1=()
+    declare -A subword_compadd_commands_level_0=()
+    declare -A subword_compadd_commands_level_1=()
+    declare subword_max_fallback_level=1
     declare subword_state=1
     _srun_subword "$@"
 }
@@ -2880,101 +1528,89 @@ _srun_subword () {
 }
 
 _srun () {
-    declare -a literals=("--quit-on-interrupt" "--kill-on-bad-exit" "--disable-status" "--use-min-nodes" "--oversubscribe" "--preserve-env" "--no-allocate" "--resv-ports" "--contiguous" "--unbuffered" "--spread-job" "--overcommit" "--multi-prog" "YYYY-MM-DD" "--version" "--verbose" "--overlap" "arbitrary" "--no-kill" "--reboot" "MM/DD/YY" "--usage" "--exact" "--quiet" "--label" "--help" "cyclic" "--hold" "MMDDYY" "plane" "block" "-V" "-h" "-G" "-B" "-Z" "-x" "-w" "-C" "-X" "-W" "-v" "-u" "-t" "-T" "-S" "-s" "-r" "-Q" "-q" "-p" "-O" "-o" "-N" "-n" "-m" "-M" "-L" "-l" "-K" "-k" "-J" "-I" "-i" "-H" "-E" "-e" "-D" "-d" "-c" "-b" "-A" "9" "8" "7" "6" "5" "4" "3" "2" "1" "0")
+    declare -a literals=("--quit-on-interrupt" "--kill-on-bad-exit" "--disable-status" "--oversubscribe" "--container-id=" "--preserve-env" "--contiguous" "--unbuffered" "--spread-job" "--overcommit" "--comment=" "YYYY-MM-DD" "--version" "--verbose" "arbitrary" "--no-kill" "MM/DD/YY" "--usage" "--quiet" "--label" "--help" "cyclic" "--hold" "MMDDYY" "plane" "block" "-V" "-h" "-G" "-x" "-w" "-C" "-X" "-W" "-v" "-u" "-t" "-s" "-Q" "-q" "-p" "-O" "-o" "-N" "-n" "-m" "-M" "-L" "-l" "-K" "-k" "-J" "-I" "-i" "-H" "-E" "-e" "-D" "-d" "-c" "-b" "-A" "0" "1" "8")
     declare -A descriptions=()
     descriptions[0]="quit on single Ctrl-C"
     descriptions[1]="kill the job if any task terminates with a"
     descriptions[2]="Disable Ctrl-C status feature"
-    descriptions[3]="if a range of node counts is given, prefer the smaller count"
-    descriptions[4]="over-subscribe resources with other jobs"
+    descriptions[3]="over-subscribe resources with other jobs"
+    descriptions[4]="OCI container ID"
     descriptions[5]="env vars for node and task counts override"
-    descriptions[6]="don't allocate nodes (must supply -w)"
-    descriptions[7]="reserve communication ports"
-    descriptions[8]="demand a contiguous range of nodes"
-    descriptions[9]="do not line-buffer stdout/err"
-    descriptions[10]="spread job across as many nodes as possible"
-    descriptions[11]="overcommit resources"
-    descriptions[12]="if set the program name specified is the configuration specification for multiple programs"
-    descriptions[13]="output version information and exit"
-    descriptions[14]="verbose mode (multiple -v's increase verbosity)"
-    descriptions[15]="Allow other steps to overlap this step"
-    descriptions[16]="do not kill job on node failure"
-    descriptions[17]="reboot block before starting job"
-    descriptions[18]="display brief usage message"
-    descriptions[19]="use only the resources requested for the step (by default, all non-gres resources on each node in the allocation will be used in the step)"
-    descriptions[20]="quiet mode (suppress informational messages)"
-    descriptions[21]="prepend task number to lines of stdout/err"
-    descriptions[22]="show this help message"
-    descriptions[23]="submit job in held state"
-    descriptions[24]="count of GPUs required for the job"
-    descriptions[25]="combine request of sockets per node,"
-    descriptions[26]="exclude a specific list of hosts"
-    descriptions[27]="request a specific list of hosts"
-    descriptions[28]="specify a list of constraints"
-    descriptions[29]="seconds to wait after first task exits"
-    descriptions[30]="time limit"
-    descriptions[31]="set srun launch fanout"
-    descriptions[32]="count of reserved cores"
-    descriptions[33]="run job step relative to node n of allocation"
-    descriptions[34]="quality of service"
-    descriptions[35]="partition requested"
-    descriptions[36]="location of stdout redirection"
-    descriptions[37]="number of nodes on which to run (N = min[-max])"
-    descriptions[38]="number of tasks to run"
-    descriptions[39]="distribution method for processes to nodes"
-    descriptions[40]="Comma separated list of clusters to issue"
-    descriptions[41]="required license, comma separated"
-    descriptions[42]="name of job"
-    descriptions[43]="exit if resources not available in secs"
-    descriptions[44]="location of stdin redirection"
-    descriptions[45]="location of stderr redirection"
-    descriptions[46]="change remote current working directory"
-    descriptions[47]="defer job until condition on jobid is satisfied"
-    descriptions[48]="number of cpus required per task"
-    descriptions[49]="defer job until HH:MM MM/DD/YY"
-    descriptions[50]="charge job to specified account"
-    declare -A descr_id_from_literal_id=([1]=0 [2]=1 [3]=2 [4]=3 [5]=4 [6]=5 [7]=6 [8]=7 [9]=8 [10]=9 [11]=10 [12]=11 [13]=12 [15]=13 [16]=14 [17]=15 [19]=16 [20]=17 [22]=18 [23]=19 [24]=20 [25]=21 [26]=22 [28]=23 [32]=13 [33]=22 [34]=24 [35]=25 [36]=6 [37]=26 [38]=27 [39]=28 [40]=2 [41]=29 [42]=14 [43]=9 [44]=30 [45]=31 [46]=32 [47]=4 [48]=33 [49]=20 [50]=34 [51]=35 [52]=11 [53]=36 [54]=37 [55]=38 [56]=39 [57]=40 [58]=41 [59]=21 [60]=1 [61]=16 [62]=42 [63]=43 [64]=44 [65]=23 [66]=5 [67]=45 [68]=46 [69]=47 [70]=48 [71]=49 [72]=50)
+    descriptions[6]="demand a contiguous range of nodes"
+    descriptions[7]="do not line-buffer stdout/err"
+    descriptions[8]="spread job across as many nodes as possible"
+    descriptions[9]="overcommit resources"
+    descriptions[10]="arbitrary comment"
+    descriptions[11]="output version information and exit"
+    descriptions[12]="verbose mode (multiple -v's increase verbosity)"
+    descriptions[13]="do not kill job on node failure"
+    descriptions[14]="display brief usage message"
+    descriptions[15]="quiet mode (suppress informational messages)"
+    descriptions[16]="prepend task number to lines of stdout/err"
+    descriptions[17]="show this help message"
+    descriptions[18]="submit job in held state"
+    descriptions[19]="count of GPUs required for the job"
+    descriptions[20]="exclude a specific list of hosts"
+    descriptions[21]="request a specific list of hosts"
+    descriptions[22]="specify a list of constraints"
+    descriptions[23]="seconds to wait after first task exits"
+    descriptions[24]="time limit"
+    descriptions[25]="quality of service"
+    descriptions[26]="partition requested"
+    descriptions[27]="location of stdout redirection"
+    descriptions[28]="number of nodes on which to run (N = min[-max])"
+    descriptions[29]="number of tasks to run"
+    descriptions[30]="distribution method for processes to nodes"
+    descriptions[31]="Comma separated list of clusters to issue"
+    descriptions[32]="required license, comma separated"
+    descriptions[33]="name of job"
+    descriptions[34]="exit if resources not available in secs"
+    descriptions[35]="location of stdin redirection"
+    descriptions[36]="location of stderr redirection"
+    descriptions[37]="change remote current working directory"
+    descriptions[38]="defer job until condition on jobid is satisfied"
+    descriptions[39]="number of cpus required per task"
+    descriptions[40]="defer job until HH:MM MM/DD/YY"
+    descriptions[41]="charge job to specified account"
+    declare -A descr_id_from_literal_id=([1]=0 [2]=1 [3]=2 [4]=3 [5]=4 [6]=5 [7]=6 [8]=7 [9]=8 [10]=9 [11]=10 [13]=11 [14]=12 [16]=13 [18]=14 [19]=15 [20]=16 [21]=17 [23]=18 [27]=11 [28]=17 [29]=19 [30]=20 [31]=21 [32]=22 [33]=2 [34]=23 [35]=12 [36]=7 [37]=24 [38]=3 [39]=15 [40]=25 [41]=26 [42]=9 [43]=27 [44]=28 [45]=29 [46]=30 [47]=31 [48]=32 [49]=16 [50]=1 [51]=13 [52]=33 [53]=34 [54]=35 [55]=18 [56]=5 [57]=36 [58]=37 [59]=38 [60]=39 [61]=40 [62]=41)
     declare -A literal_transitions=()
-    literal_transitions[3]="([29]=1 [21]=1 [14]=1)"
-    literal_transitions[1]="([72]=2 [71]=3 [70]=4 [69]=5 [68]=6 [67]=7 [66]=1 [6]=1 [65]=1 [28]=1 [64]=7 [63]=8 [62]=9 [61]=1 [19]=1 [60]=1 [2]=1 [59]=1 [25]=1 [58]=10 [57]=11 [56]=12 [13]=1 [55]=4 [54]=4 [53]=7 [52]=1 [12]=1 [17]=1 [51]=13 [1]=1 [50]=14 [49]=1 [24]=1 [20]=1 [48]=4 [47]=1 [5]=1 [46]=4 [11]=1 [45]=4 [44]=3 [43]=1 [10]=1 [4]=1 [42]=1 [16]=1 [41]=4 [40]=1 [3]=1 [9]=1 [39]=15 [38]=16 [37]=17 [36]=1 [7]=1 [23]=1 [8]=1 [35]=4 [34]=4 [33]=1 [26]=1 [22]=1 [32]=1 [15]=1)"
-    literal_transitions[8]="([72]=2 [71]=3 [70]=4 [82]=1 [81]=1 [80]=1 [79]=1 [78]=1 [77]=1 [76]=1 [75]=1 [74]=1 [73]=1 [69]=5 [68]=6 [67]=7 [66]=1 [6]=1 [65]=1 [28]=1 [64]=7 [63]=8 [62]=9 [61]=1 [19]=1 [60]=1 [2]=1 [59]=1 [25]=1 [58]=10 [57]=11 [56]=12 [13]=1 [55]=4 [54]=4 [53]=7 [52]=1 [12]=1 [17]=1 [51]=13 [1]=1 [50]=14 [49]=1 [24]=1 [20]=1 [48]=4 [47]=1 [5]=1 [46]=4 [11]=1 [45]=4 [44]=3 [43]=1 [10]=1 [4]=1 [42]=1 [16]=1 [41]=4 [40]=1 [3]=1 [9]=1 [39]=15 [38]=16 [37]=17 [36]=1 [7]=1 [23]=1 [8]=1 [35]=4 [34]=4 [33]=1 [26]=1 [22]=1 [32]=1 [15]=1)"
-    literal_transitions[12]="([31]=1 [27]=1 [18]=1 [30]=1)"
-    literal_transitions[16]="([72]=2 [71]=3 [70]=4 [69]=5 [68]=6 [67]=7 [66]=1 [6]=1 [65]=1 [28]=1 [64]=7 [63]=8 [62]=9 [61]=1 [19]=1 [60]=1 [2]=1 [59]=1 [25]=1 [58]=10 [57]=11 [56]=12 [13]=1 [55]=4 [54]=4 [53]=7 [52]=1 [12]=1 [17]=1 [51]=13 [1]=1 [50]=14 [49]=1 [24]=1 [20]=1 [48]=4 [47]=1 [5]=1 [46]=4 [11]=1 [45]=4 [44]=3 [43]=1 [10]=1 [4]=1 [42]=1 [16]=1 [41]=4 [40]=1 [3]=1 [9]=1 [39]=15 [38]=16 [37]=17 [36]=1 [7]=1 [23]=1 [8]=1 [35]=4 [34]=4 [33]=1 [26]=1 [22]=1 [32]=1 [15]=1)"
-    literal_transitions[17]="([72]=2 [71]=3 [70]=4 [69]=5 [68]=6 [67]=7 [66]=1 [6]=1 [65]=1 [28]=1 [64]=7 [63]=8 [62]=9 [61]=1 [19]=1 [60]=1 [2]=1 [59]=1 [25]=1 [58]=10 [57]=11 [56]=12 [13]=1 [55]=4 [54]=4 [53]=7 [52]=1 [12]=1 [17]=1 [51]=13 [1]=1 [50]=14 [49]=1 [24]=1 [20]=1 [48]=4 [47]=1 [5]=1 [46]=4 [11]=1 [45]=4 [44]=3 [43]=1 [10]=1 [4]=1 [42]=1 [16]=1 [41]=4 [40]=1 [3]=1 [9]=1 [39]=15 [38]=16 [37]=17 [36]=1 [7]=1 [23]=1 [8]=1 [35]=4 [34]=4 [33]=1 [26]=1 [22]=1 [32]=1 [15]=1)"
-    literal_transitions[5]="([72]=2 [71]=3 [70]=4 [69]=5 [68]=6 [67]=7 [66]=1 [6]=1 [65]=1 [28]=1 [64]=7 [63]=8 [62]=9 [61]=1 [19]=1 [60]=1 [2]=1 [59]=1 [25]=1 [58]=10 [57]=11 [56]=12 [13]=1 [55]=4 [54]=4 [53]=7 [52]=1 [12]=1 [17]=1 [51]=13 [1]=1 [50]=14 [49]=1 [24]=1 [20]=1 [48]=4 [47]=1 [5]=1 [46]=4 [11]=1 [45]=4 [44]=3 [43]=1 [10]=1 [4]=1 [42]=1 [16]=1 [41]=4 [40]=1 [3]=1 [9]=1 [39]=15 [38]=16 [37]=17 [36]=1 [7]=1 [23]=1 [8]=1 [35]=4 [34]=4 [33]=1 [26]=1 [22]=1 [32]=1 [15]=1)"
-    literal_transitions[4]="([82]=1 [81]=1 [80]=1 [79]=1 [78]=1 [77]=1 [76]=1 [75]=1 [74]=1 [73]=1)"
-    literal_transitions[19]="([72]=2 [71]=3 [70]=4 [69]=5 [68]=6 [67]=7 [66]=1 [6]=1 [65]=1 [28]=1 [64]=7 [63]=8 [62]=9 [61]=1 [19]=1 [60]=1 [2]=1 [59]=1 [25]=1 [58]=10 [57]=11 [56]=12 [13]=1 [55]=4 [54]=4 [53]=7 [52]=1 [12]=1 [17]=1 [51]=13 [1]=1 [50]=14 [49]=1 [24]=1 [20]=1 [48]=4 [47]=1 [5]=1 [46]=4 [11]=1 [45]=4 [44]=3 [43]=1 [10]=1 [4]=1 [42]=1 [16]=1 [41]=4 [40]=1 [3]=1 [9]=1 [39]=15 [38]=16 [37]=17 [36]=1 [7]=1 [23]=1 [8]=1 [35]=4 [34]=4 [33]=1 [26]=1 [22]=1 [32]=1 [15]=1)"
-    literal_transitions[20]="([72]=2 [71]=3 [70]=4 [69]=5 [68]=6 [67]=7 [66]=1 [6]=1 [65]=1 [28]=1 [64]=7 [63]=8 [62]=9 [61]=1 [19]=1 [60]=1 [2]=1 [59]=1 [25]=1 [58]=10 [57]=11 [56]=12 [13]=1 [55]=4 [54]=4 [53]=7 [52]=1 [12]=1 [17]=1 [51]=13 [1]=1 [50]=14 [49]=1 [24]=1 [20]=1 [48]=4 [47]=1 [5]=1 [46]=4 [11]=1 [45]=4 [44]=3 [43]=1 [10]=1 [4]=1 [42]=1 [16]=1 [41]=4 [40]=1 [3]=1 [9]=1 [39]=15 [38]=16 [37]=17 [36]=1 [7]=1 [23]=1 [8]=1 [35]=4 [34]=4 [33]=1 [26]=1 [22]=1 [32]=1 [15]=1)"
+    literal_transitions[15]="([62]=2 [61]=3 [60]=4 [11]=1 [5]=1 [59]=5 [58]=6 [57]=7 [56]=1 [6]=1 [55]=1 [23]=1 [54]=7 [53]=8 [52]=9 [51]=1 [16]=1 [50]=1 [2]=1 [49]=1 [20]=1 [48]=10 [47]=11 [46]=12 [45]=8 [44]=8 [43]=7 [42]=1 [10]=1 [41]=13 [1]=1 [40]=14 [39]=1 [19]=1 [38]=1 [4]=1 [9]=1 [37]=3 [36]=1 [8]=1 [35]=1 [14]=1 [34]=15 [63]=1 [33]=1 [3]=1 [7]=1 [32]=16 [31]=17 [30]=18 [29]=19 [28]=1 [21]=1 [18]=1 [27]=1 [13]=1)"
+    literal_transitions[12]="([26]=1 [22]=1 [15]=1 [25]=1)"
+    literal_transitions[3]="([24]=1 [17]=1 [12]=1)"
+    literal_transitions[1]="([62]=2 [61]=3 [60]=4 [11]=1 [5]=1 [59]=5 [58]=6 [57]=7 [56]=1 [6]=1 [55]=1 [23]=1 [54]=7 [53]=8 [52]=9 [51]=1 [16]=1 [50]=1 [2]=1 [49]=1 [20]=1 [48]=10 [47]=11 [46]=12 [45]=8 [44]=8 [43]=7 [42]=1 [10]=1 [41]=13 [1]=1 [40]=14 [39]=1 [19]=1 [38]=1 [4]=1 [9]=1 [37]=3 [36]=1 [8]=1 [35]=1 [14]=1 [34]=15 [33]=1 [3]=1 [7]=1 [32]=16 [31]=17 [30]=18 [29]=19 [28]=1 [21]=1 [18]=1 [27]=1 [13]=1)"
+    literal_transitions[8]="([62]=2 [61]=3 [60]=4 [11]=1 [5]=1 [59]=5 [58]=6 [57]=7 [56]=1 [6]=1 [55]=1 [23]=1 [54]=7 [53]=8 [64]=1 [52]=9 [51]=1 [16]=1 [50]=1 [2]=1 [49]=1 [20]=1 [48]=10 [47]=11 [46]=12 [45]=8 [44]=8 [43]=7 [42]=1 [10]=1 [41]=13 [1]=1 [40]=14 [39]=1 [19]=1 [38]=1 [4]=1 [9]=1 [37]=3 [36]=1 [8]=1 [35]=1 [14]=1 [34]=15 [33]=1 [3]=1 [7]=1 [32]=16 [31]=17 [30]=18 [29]=19 [28]=1 [21]=1 [18]=1 [27]=1 [13]=1)"
+    literal_transitions[19]="([62]=2 [61]=3 [60]=4 [11]=1 [5]=1 [59]=5 [58]=6 [57]=7 [56]=1 [6]=1 [55]=1 [23]=1 [54]=7 [53]=8 [52]=9 [51]=1 [16]=1 [50]=1 [2]=1 [49]=1 [20]=1 [48]=10 [47]=11 [46]=12 [45]=8 [44]=8 [43]=7 [42]=1 [10]=1 [41]=13 [1]=1 [40]=14 [39]=1 [19]=1 [38]=1 [4]=1 [9]=1 [37]=3 [36]=1 [8]=1 [35]=1 [14]=1 [34]=15 [33]=1 [3]=1 [7]=1 [32]=16 [31]=17 [30]=18 [29]=19 [64]=1 [28]=1 [21]=1 [18]=1 [27]=1 [13]=1)"
+    literal_transitions[4]="([62]=2 [61]=3 [60]=4 [65]=1 [11]=1 [5]=1 [59]=5 [58]=6 [57]=7 [56]=1 [6]=1 [55]=1 [23]=1 [54]=7 [53]=8 [52]=9 [51]=1 [16]=1 [50]=1 [2]=1 [49]=1 [20]=1 [48]=10 [47]=11 [46]=12 [45]=8 [44]=8 [43]=7 [42]=1 [10]=1 [41]=13 [1]=1 [40]=14 [39]=1 [19]=1 [38]=1 [4]=1 [9]=1 [37]=3 [36]=1 [8]=1 [35]=1 [14]=1 [34]=15 [33]=1 [3]=1 [7]=1 [32]=16 [31]=17 [30]=18 [29]=19 [28]=1 [21]=1 [18]=1 [27]=1 [13]=1)"
+    literal_transitions[9]="([62]=2 [61]=3 [60]=4 [11]=1 [5]=1 [59]=5 [58]=6 [57]=7 [56]=1 [6]=1 [55]=1 [23]=1 [54]=7 [53]=8 [52]=9 [51]=1 [16]=1 [50]=1 [2]=1 [49]=1 [20]=1 [48]=10 [47]=11 [46]=12 [45]=8 [44]=8 [43]=7 [42]=1 [10]=1 [41]=13 [1]=1 [40]=14 [39]=1 [19]=1 [38]=1 [4]=1 [9]=1 [37]=3 [36]=1 [8]=1 [35]=1 [14]=1 [34]=15 [33]=1 [3]=1 [7]=1 [32]=16 [31]=17 [30]=18 [29]=19 [28]=1 [21]=1 [18]=1 [27]=1 [13]=1)"
     declare -A command_transitions=()
     command_transitions[2]="([0]=1)"
-    command_transitions[14]="([11]=1)"
-    command_transitions[13]="([10]=1)"
-    command_transitions[15]="([13]=1)"
-    command_transitions[11]="([8]=1)"
-    command_transitions[16]="([15]=1)"
-    command_transitions[17]="([15]=1)"
-    command_transitions[10]="([7]=1)"
-    command_transitions[9]="([6]=1)"
+    command_transitions[14]="([10]=1)"
+    command_transitions[13]="([9]=1)"
+    command_transitions[11]="([7]=1)"
     declare -A compadd_transitions=()
-    compadd_transitions[1]="([4]=18)"
-    compadd_transitions[5]="([4]=18)"
+    compadd_transitions[1]="([4]=20)"
+    compadd_transitions[4]="([4]=20)"
     compadd_transitions[6]="([3]=1)"
     compadd_transitions[7]="([1]=1)"
-    compadd_transitions[8]="([4]=18)"
-    compadd_transitions[16]="([1]=1 [4]=18)"
-    compadd_transitions[17]="([1]=1 [4]=18)"
-    compadd_transitions[18]="([1]=18)"
-    compadd_transitions[19]="([4]=18)"
-    compadd_transitions[20]="([4]=18)"
+    compadd_transitions[8]="([4]=20)"
+    compadd_transitions[9]="([1]=1 [4]=20)"
+    compadd_transitions[15]="([4]=20)"
+    compadd_transitions[19]="([4]=20)"
+    compadd_transitions[20]="([1]=21 [4]=20)"
+    compadd_transitions[21]="([1]=21)"
     declare -A subword_transitions=()
-    subword_transitions[1]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1 [56]=1 [57]=1 [58]=1 [59]=1 [60]=1 [61]=1 [62]=1 [63]=1 [64]=1 [65]=1 [66]=1 [67]=1 [68]=1 [69]=1 [70]=1 [71]=1 [72]=1 [73]=1 [74]=1 [75]=1 [76]=1 [77]=1 [78]=1 [79]=1 [80]=1 [81]=1 [82]=1 [83]=1 [84]=1 [85]=1 [86]=1 [87]=1 [88]=1 [89]=1 [90]=1 [91]=1 [92]=1 [93]=1 [94]=1 [95]=1 [96]=1 [97]=1 [98]=1)"
-    subword_transitions[3]="([102]=1 [103]=1 [104]=1)"
-    subword_transitions[5]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [101]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1 [56]=1 [57]=1 [58]=1 [59]=1 [60]=1 [61]=1 [62]=1 [63]=1 [64]=1 [65]=1 [66]=1 [67]=1 [68]=1 [69]=1 [70]=1 [71]=1 [72]=1 [73]=1 [74]=1 [75]=1 [76]=1 [77]=1 [78]=1 [79]=1 [80]=1 [81]=1 [82]=1 [83]=1 [84]=1 [85]=1 [86]=1 [87]=1 [88]=1 [89]=1 [90]=1 [91]=1 [92]=1 [93]=1 [94]=1 [95]=1 [96]=1 [97]=1 [98]=1)"
-    subword_transitions[8]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1 [56]=1 [57]=1 [58]=1 [59]=1 [60]=1 [61]=1 [62]=1 [63]=1 [64]=1 [65]=1 [66]=1 [67]=1 [68]=1 [69]=1 [70]=1 [71]=1 [72]=1 [73]=1 [74]=1 [75]=1 [76]=1 [77]=1 [78]=1 [79]=1 [80]=1 [81]=1 [82]=1 [83]=1 [84]=1 [85]=1 [86]=1 [87]=1 [88]=1 [89]=1 [90]=1 [91]=1 [92]=1 [93]=1 [94]=1 [95]=1 [96]=1 [97]=1 [98]=1)"
-    subword_transitions[16]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1 [56]=1 [57]=1 [58]=1 [59]=1 [60]=1 [61]=1 [62]=1 [63]=1 [64]=1 [65]=1 [66]=1 [67]=1 [68]=1 [69]=1 [70]=1 [71]=1 [72]=1 [73]=1 [74]=1 [75]=1 [76]=1 [77]=1 [99]=19 [78]=1 [79]=1 [80]=1 [81]=1 [82]=1 [83]=1 [84]=1 [85]=1 [86]=1 [87]=1 [88]=1 [89]=1 [90]=1 [91]=1 [92]=1 [93]=1 [94]=1 [95]=1 [96]=1 [97]=1 [98]=1)"
-    subword_transitions[17]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1 [56]=1 [57]=1 [58]=1 [59]=1 [60]=1 [61]=1 [62]=1 [63]=1 [64]=1 [65]=1 [66]=1 [67]=1 [68]=1 [69]=1 [70]=1 [71]=1 [72]=1 [73]=1 [74]=1 [75]=1 [76]=1 [77]=1 [78]=1 [100]=20 [79]=1 [80]=1 [81]=1 [82]=1 [83]=1 [84]=1 [85]=1 [86]=1 [87]=1 [88]=1 [89]=1 [90]=1 [91]=1 [92]=1 [93]=1 [94]=1 [95]=1 [96]=1 [97]=1 [98]=1)"
-    subword_transitions[19]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1 [56]=1 [57]=1 [58]=1 [59]=1 [60]=1 [61]=1 [62]=1 [63]=1 [64]=1 [65]=1 [66]=1 [67]=1 [68]=1 [69]=1 [70]=1 [71]=1 [72]=1 [73]=1 [74]=1 [75]=1 [76]=1 [77]=1 [99]=19 [78]=1 [79]=1 [80]=1 [81]=1 [82]=1 [83]=1 [84]=1 [85]=1 [86]=1 [87]=1 [88]=1 [89]=1 [90]=1 [91]=1 [92]=1 [93]=1 [94]=1 [95]=1 [96]=1 [97]=1 [98]=1)"
-    subword_transitions[20]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1 [56]=1 [57]=1 [58]=1 [59]=1 [60]=1 [61]=1 [62]=1 [63]=1 [64]=1 [65]=1 [66]=1 [67]=1 [68]=1 [69]=1 [70]=1 [71]=1 [72]=1 [73]=1 [74]=1 [75]=1 [76]=1 [77]=1 [78]=1 [100]=20 [79]=1 [80]=1 [81]=1 [82]=1 [83]=1 [84]=1 [85]=1 [86]=1 [87]=1 [88]=1 [89]=1 [90]=1 [91]=1 [92]=1 [93]=1 [94]=1 [95]=1 [96]=1 [97]=1 [98]=1)"
+    subword_transitions[1]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1)"
+    subword_transitions[3]="([58]=1 [59]=1 [60]=1)"
+    subword_transitions[4]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1)"
+    subword_transitions[5]="([56]=1)"
+    subword_transitions[8]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1)"
+    subword_transitions[9]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1)"
+    subword_transitions[10]="([62]=1)"
+    subword_transitions[15]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1)"
+    subword_transitions[16]="([57]=1)"
+    subword_transitions[17]="([61]=1)"
+    subword_transitions[18]="([63]=1)"
+    subword_transitions[19]="([1]=1 [2]=1 [3]=1 [4]=1 [5]=1 [6]=1 [7]=1 [8]=1 [9]=1 [10]=1 [11]=1 [12]=1 [13]=1 [14]=1 [15]=1 [16]=1 [17]=1 [18]=1 [19]=1 [20]=1 [21]=1 [22]=1 [23]=1 [24]=1 [25]=1 [26]=1 [27]=1 [28]=1 [29]=1 [30]=1 [31]=1 [32]=1 [33]=1 [34]=1 [35]=1 [36]=1 [37]=1 [38]=1 [39]=1 [40]=1 [41]=1 [42]=1 [43]=1 [44]=1 [45]=1 [46]=1 [47]=1 [48]=1 [49]=1 [50]=1 [51]=1 [52]=1 [53]=1 [54]=1 [55]=1)"
 
     declare state=1
     declare word_index=2
@@ -3094,24 +1730,16 @@ _srun () {
         return 1
     done
 
-    declare -A literal_transitions_level_0=([19]="72 69 58 39" [1]="72 69 58 39" [8]="72 82 69 58 39" [20]="72 69 58 39" [16]="72 69 58 39" [17]="72 69 58 39" [5]="72 69 58 39" [4]="82")
-    declare -A literal_transitions_level_1=([8]="81 80 79 78 77 76 75 74 73" [4]="81 80 79 78 77 76 75 74 73")
-    declare -A literal_transitions_level_2=([19]="71 70 68 67 66 6 65 28 64 63 62 61 19 60 2 59 25 57 56 13 55 54 53 52 12 17 51 1 50 49 24 20 48 47 5 46 11 45 44 43 10 4 42 16 41 40 3" [1]="71 70 68 67 66 6 65 28 64 63 62 61 19 60 2 59 25 57 56 13 55 54 53 52 12 17 51 1 50 49 24 20 48 47 5 46 11 45 44 43 10 4 42 16 41 40 3" [8]="71 70 68 67 66 6 65 28 64 63 62 61 19 60 2 59 25 57 56 13 55 54 53 52 12 17 51 1 50 49 24 20 48 47 5 46 11 45 44 43 10 4 42 16 41 40 3" [20]="71 70 68 67 66 6 65 28 64 63 62 61 19 60 2 59 25 57 56 13 55 54 53 52 12 17 51 1 50 49 24 20 48 47 5 46 11 45 44 43 10 4 42 16 41 40 3" [16]="71 70 68 67 66 6 65 28 64 63 62 61 19 60 2 59 25 57 56 13 55 54 53 52 12 17 51 1 50 49 24 20 48 47 5 46 11 45 44 43 10 4 42 16 41 40 3" [17]="71 70 68 67 66 6 65 28 64 63 62 61 19 60 2 59 25 57 56 13 55 54 53 52 12 17 51 1 50 49 24 20 48 47 5 46 11 45 44 43 10 4 42 16 41 40 3" [5]="71 70 68 67 66 6 65 28 64 63 62 61 19 60 2 59 25 57 56 13 55 54 53 52 12 17 51 1 50 49 24 20 48 47 5 46 11 45 44 43 10 4 42 16 41 40 3" [3]="29 21 14" [12]="31 27 18 30")
-    declare -A literal_transitions_level_3=([16]="9 38 37 36 7 23 8 35 34 33 26 22 32 15" [17]="9 38 37 36 7 23 8 35 34 33 26 22 32 15" [5]="9 38 37 36 7 23 8 35 34 33 26 22 32 15" [19]="9 38 37 36 7 23 8 35 34 33 26 22 32 15" [1]="9 38 37 36 7 23 8 35 34 33 26 22 32 15" [8]="9 38 37 36 7 23 8 35 34 33 26 22 32 15" [20]="9 38 37 36 7 23 8 35 34 33 26 22 32 15")
-    declare -A commands_level_0=([2]="0" [15]="13" [13]="10" [14]="11" [11]="8" [16]="15" [17]="15" [10]="7" [9]="6")
+    declare -A literal_transitions_level_0=([19]="62 61 60 11 5 59 58 57 56 6 55 23 54 53 52 51 16 50 2 49 20 48 47 46 45 44 43 42 10 41 1 40 39 19 38 4 9 37 36 8 35 14 34 33 3" [15]="62 61 60 11 5 59 58 57 56 6 55 23 54 53 52 51 16 50 2 49 20 48 47 46 45 44 43 42 10 41 1 40 39 19 38 4 9 37 36 8 35 14 34 63 33 3" [8]="62 61 60 11 5 59 58 57 56 6 55 23 54 53 64 52 51 16 50 2 49 20 48 47 46 45 44 43 42 10 41 1 40 39 19 38 4 9 37 36 8 35 14 34 33 3" [3]="24 17 12" [1]="62 61 60 11 5 59 58 57 56 6 55 23 54 53 52 51 16 50 2 49 20 48 47 46 45 44 43 42 10 41 1 40 39 19 38 4 9 37 36 8 35 14 34 33 3" [12]="26 22 15 25" [4]="62 61 60 65 11 5 59 58 57 56 6 55 23 54 53 52 51 16 50 2 49 20 48 47 46 45 44 43 42 10 41 1 40 39 19 38 4 9 37 36 8 35 14 34 33 3" [9]="62 61 60 11 5 59 58 57 56 6 55 23 54 53 52 51 16 50 2 49 20 48 47 46 45 44 43 42 10 41 1 40 39 19 38 4 9 37 36 8 35 14 34 33 3")
+    declare -A literal_transitions_level_1=([15]="7 32 31 30 29 28 21 18 27 13" [4]="7 32 31 30 29 28 21 18 27 13" [19]="7 32 31 30 29 64 28 21 18 27 13" [1]="7 32 31 30 29 28 21 18 27 13" [8]="7 32 31 30 29 28 21 18 27 13" [9]="7 32 31 30 29 28 21 18 27 13")
+    declare -A commands_level_0=([2]="0" [14]="10" [13]="9" [11]="7")
     declare -A commands_level_1=()
-    declare -A commands_level_2=()
-    declare -A commands_level_3=()
-    declare -A compadd_commands_level_0=([19]="4" [20]="4" [1]="4" [8]="4" [16]="1 4" [17]="1 4" [7]="1" [18]="1" [6]="3" [5]="4")
+    declare -A compadd_commands_level_0=([15]="4" [19]="4" [1]="4" [8]="4" [7]="1" [6]="3" [20]="1 4" [4]="4" [21]="1" [9]="1 4")
     declare -A compadd_commands_level_1=()
-    declare -A compadd_commands_level_2=()
-    declare -A compadd_commands_level_3=()
-    declare -A subword_transitions_level_0=([16]="1 2" [17]="1 2" [5]="1 2 101" [19]="1 2" [1]="1 2" [8]="1 2" [20]="1 2")
-    declare -A subword_transitions_level_1=([16]="3 4 5 6 7 16 17 31 32 71 72 99" [17]="3 4 5 6 7 16 17 31 32 71 72 100" [5]="3 4 5 6 7 16 17 31 32 71 72" [19]="3 4 5 6 7 16 17 31 32 71 72 99" [1]="3 4 5 6 7 16 17 31 32 71 72" [8]="3 4 5 6 7 16 17 31 32 71 72" [20]="3 4 5 6 7 16 17 31 32 71 72 100")
-    declare -A subword_transitions_level_2=([19]="8 9 10 11 12 13 14 15 18 19 20 21 22 23 24 25 26 27 28 29 30 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 73" [1]="8 9 10 11 12 13 14 15 18 19 20 21 22 23 24 25 26 27 28 29 30 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 73" [8]="8 9 10 11 12 13 14 15 18 19 20 21 22 23 24 25 26 27 28 29 30 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 73" [20]="8 9 10 11 12 13 14 15 18 19 20 21 22 23 24 25 26 27 28 29 30 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 73" [16]="8 9 10 11 12 13 14 15 18 19 20 21 22 23 24 25 26 27 28 29 30 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 73" [17]="8 9 10 11 12 13 14 15 18 19 20 21 22 23 24 25 26 27 28 29 30 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 73" [5]="8 9 10 11 12 13 14 15 18 19 20 21 22 23 24 25 26 27 28 29 30 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 73" [3]="102 103 104")
-    declare -A subword_transitions_level_3=([16]="70 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98" [17]="70 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98" [5]="70 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98" [19]="70 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98" [1]="70 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98" [8]="70 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98" [20]="70 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98")
+    declare -A subword_transitions_level_0=([3]="58 59 60" [1]="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42" [8]="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42" [19]="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42" [15]="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42" [5]="56" [10]="62" [4]="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42" [9]="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42")
+    declare -A subword_transitions_level_1=([15]="43 44 45 46 47 48 49 50 51 52 53 54 55" [19]="43 44 45 46 47 48 49 50 51 52 53 54 55" [1]="43 44 45 46 47 48 49 50 51 52 53 54 55" [8]="43 44 45 46 47 48 49 50 51 52 53 54 55" [16]="57" [17]="61" [18]="63" [4]="43 44 45 46 47 48 49 50 51 52 53 54 55" [9]="43 44 45 46 47 48 49 50 51 52 53 54 55")
 
-    declare max_fallback_level=3
+    declare max_fallback_level=1
     for (( fallback_level=0; fallback_level <= max_fallback_level; fallback_level++ )); do
         completions_no_description_trailing_space=()
         completions_no_description_no_trailing_space=()
